@@ -1,0 +1,254 @@
+.contact-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding-top: 140px;
+}
+
+.contact-container {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 80px;
+    align-items: center;
+}
+
+/* Polaroid Photo Card Wrapper */
+.contact-profile-wrap {
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.contact-profile-wrap::before {
+    content: "";
+    position: absolute;
+    width: 320px;
+    height: 320px;
+    background: var(--purple);
+    filter: blur(140px);
+    opacity: 0.15;
+    z-index: -1;
+}
+
+.polaroid-card {
+    background: #121217;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 24px;
+    border-radius: 32px;
+    width: 100%;
+    max-width: 380px;
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6);
+    transform: rotate(-2deg);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.5s;
+}
+
+.polaroid-card:hover {
+    transform: rotate(0deg) translateY(-8px);
+    border-color: rgba(139, 92, 246, 0.4);
+}
+
+.photo-container {
+    background: linear-gradient(135deg, #271442 0%, #0e2030 100%);
+    height: 300px;
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-image-fallback {
+    font-size: 100px;
+    animation: floatingIcon 6s ease-in-out infinite;
+}
+
+.tech-overlay-tag {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(16, 185, 129, 0.15);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    color: #10b981;
+    padding: 4px 10px;
+    font-size: 11px;
+    font-family: monospace;
+    font-weight: 700;
+    border-radius: 6px;
+    letter-spacing: 1px;
+}
+
+.profile-metadata {
+    padding-top: 24px;
+    text-align: center;
+}
+
+.profile-metadata h3 {
+    color: #fff;
+    font-size: 24px;
+    font-weight: 800;
+}
+
+.role-desc {
+    color: var(--muted);
+    font-size: 14px;
+    margin-top: 4px;
+}
+
+.location-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 15px;
+}
+
+.location-tag .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--cyan);
+    box-shadow: 0 0 8px var(--cyan);
+}
+
+/* Contact Details Right side */
+.contact-title {
+    font-size: 56px;
+    font-weight: 900;
+    line-height: 1.1;
+    margin-top: 10px;
+    letter-spacing: -2px;
+}
+
+.contact-desc {
+    color: var(--muted);
+    font-size: 18px;
+    line-height: 1.7;
+    margin: 20px 0 40px;
+}
+
+/* Call / Mail action buttons */
+.action-buttons-group {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.contact-action-btn {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 30px;
+    border-radius: 20px;
+    text-decoration: none;
+    transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+    background: rgba(255, 255, 255, 0.01);
+    border: 1px solid var(--border);
+}
+
+.contact-action-btn .icon {
+    font-size: 24px;
+}
+
+.btn-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.btn-text span {
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn-text strong {
+    font-size: 18px;
+    color: #fff;
+    margin-top: 2px;
+    transition: color 0.3s;
+}
+
+/* Hover effects */
+.phone-btn:hover {
+    border-color: rgba(139, 92, 246, 0.4);
+    box-shadow: 0 10px 30px rgba(139, 92, 246, 0.08);
+    transform: translateX(5px);
+}
+.phone-btn:hover strong { color: var(--purple); }
+
+.email-btn:hover {
+    border-color: rgba(6, 182, 212, 0.4);
+    box-shadow: 0 10px 30px rgba(6, 182, 212, 0.08);
+    transform: translateX(5px);
+}
+.email-btn:hover strong { color: var(--cyan); }
+
+/* Availability pulse indicator */
+.availability-status {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 35px;
+    font-size: 13px;
+    color: var(--muted);
+}
+
+.pulse-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--green);
+    position: relative;
+}
+
+.pulse-indicator::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: var(--green);
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(2.5); opacity: 0; }
+}
+
+@keyframes floatingIcon {
+    0% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(4deg); }
+    100% { transform: translateY(0px) rotate(0deg); }
+}
+
+/* Responsive Overrides */
+@media(max-width: 992px) {
+    .contact-container {
+        grid-template-columns: 1fr;
+        gap: 60px;
+    }
+    .contact-title { font-size: 42px; }
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 600;
+    gap: 8px;
+    text-decoration: none;
+    padding: 6px 14px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border);
+    transition: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+

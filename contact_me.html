@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Me | Get In Touch</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="contact_me.css">
+</head>
+<body>
+
+    <!-- Floating Navigation -->
+  <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Ranajeet Gaware<span>.</span></div>   
+                <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <div class="menu" id="navMenu">
+                    <a href="home.html" >Profile</a>
+                    <a href="home.html#expertise">Skills</a>
+                    <a href="cccc_copy.html">Case Studies</a>
+                    <a href="Methodology.html">Methodology</a>
+                    <a href="contact_me.html" class="active">Contact me</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Background Glow Elements -->
+    <div class="glow one"></div>
+    <div class="glow two"></div>
+    
+  
+     
+    
+  
+
+
+      <section >
+         <div class=" contact-container" style="    grid-template-columns: 0.9fr 1.1fr;
+    width: min(1400px, 90%);margin: auto;">
+           
+             <div class="container">
+                       <a href="home.html" class="back-link" aria-label="Back to Profile">
+                        <span class="back-arrow-icon">←</span> Profile
+                    </a>
+                </div>
+        
+
+        </div>
+        <div class="container contact-container">
+           
+            <!-- Left Side: Interactive Contact Card -->
+           
+            <div class="contact-profile-wrap">
+           
+                <div class="polaroid-card">
+                    
+                    <div class="photo-container">
+                        <!-- Profile Image Placeholder with rich gradient backdrops -->
+                        <div class="profile-image-fallback">🧑‍💻</div>
+                        <div class="tech-overlay-tag">ACTIVE</div>
+                    </div>
+                    <div class="profile-metadata">
+                        <h3>Creative Designer</h3>
+                        <p class="role-desc">Lead UX & AIX Architect</p>
+                        <div class="location-tag">
+                            <span class="dot"></span>
+                            Pune, India
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side: Contact Actions & Channels -->
+            <div class="contact-details">
+                <span class="section-label">Connect Directly</span>
+                <h1 class="contact-title">Let’s engineer something <span class="gradient">incredible</span>.</h1>
+                <p class="contact-desc">Available for consulting, systems architecture design, or product UX strategy sessions.</p>
+
+                <div class="action-buttons-group">
+                    <!-- Call Button -->
+                    <a href="tel:+919876543210" class="contact-action-btn phone-btn">
+                        <span class="icon">📞</span>
+                        <div class="btn-text">
+                            <span>Call Me Directly</span>
+                            <strong>+91 98765-43210</strong>
+                        </div>
+                    </a>
+
+                    <!-- Email Button -->
+                    <a href="mailto:hello@designerportfolio.com" class="contact-action-btn email-btn">
+                        <span class="icon">✉️</span>
+                        <div class="btn-text">
+                            <span>Email Address</span>
+                            <strong>hello@portfolio.com</strong>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="availability-status">
+                    <div class="pulse-indicator"></div>
+                    <p>Current Response Latency: <strong>&lt; 3 hours</strong></p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-bottom">
+            <p>© 2026 UX & AIX Portfolio. All rights reserved.</p>
+        </div>
+    </footer>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Mobile Navigation Toggle
+        const navToggle = document.getElementById('navToggle');
+        const navMenu = document.getElementById('navMenu');
+
+        if (navToggle && navMenu) {
+            navToggle.addEventListener('click', () => {
+                navToggle.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+
+            navMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navToggle.classList.remove('active');
+                    navMenu.classList.remove('active');
+                });
+            });
+        }
+
+        // Scroll Progress Bar & Back to Top
+        const progressBar = document.getElementById('scroll-progress');
+        const backToTopBtn = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', () => {
+            const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            
+            if (progressBar) {
+                progressBar.style.width = scrolled + '%';
+            }
+
+            if (backToTopBtn) {
+                if (winScroll > 300) {
+                    backToTopBtn.style.opacity = '1';
+                    backToTopBtn.style.pointerEvents = 'auto';
+                } else {
+                    backToTopBtn.style.opacity = '0';
+                    backToTopBtn.style.pointerEvents = 'none';
+                }
+            }
+        });
+
+        if (backToTopBtn) {
+            backToTopBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+
+        // Case Studies Scroll Carousel Logic
+        const section = document.querySelector('.scroll-carousel-section');
+        const container = document.getElementById('carouselContainer');
+        const track = document.getElementById('caseStudiesTrack');
+        const indicators = document.querySelectorAll('.indicator-step');
+        
+        if (!section || !track || !container) return;
+
+        let isVisible = false;
+        let currentTranslate = 0;
+        
+        let isDragging = false;
+        let startX = 0;
+        let prevTranslate = 0;
+
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { isVisible = entry.isIntersecting; });
+        }, { threshold: 0.01 });
+        sectionObserver.observe(section);
+
+        const getMaxMove = () => {
+            return track.scrollWidth - window.innerWidth + parseFloat(getComputedStyle(container).paddingLeft || 40);
+        };
+
+        const updateActiveStates = () => {
+            const cards = document.querySelectorAll('.case-card');
+            const viewportCenter = window.innerWidth / 2;
+            let closestCardIndex = 1;
+            let smallestDistance = Infinity;
+
+            cards.forEach((card) => {
+                const rect = card.getBoundingClientRect();
+                const cardCenter = rect.left + (rect.width / 2);
+                const distanceFromCenter = Math.abs(viewportCenter - cardCenter);
+
+                if (distanceFromCenter < smallestDistance) {
+                    smallestDistance = distanceFromCenter;
+                    closestCardIndex = parseInt(card.getAttribute('data-index'));
+                }
+            });
+
+            cards.forEach((card) => {
+                if (parseInt(card.getAttribute('data-index')) === closestCardIndex) {
+                    card.classList.add('active-card');
+                } else {
+                    card.classList.remove('active-card');
+                }
+            });
+
+            const activeIndicatorNum = Math.min(4, closestCardIndex);
+            indicators.forEach((indicator) => {
+                const stepNum = parseInt(indicator.getAttribute('data-step'));
+                if (stepNum === activeIndicatorNum) {
+                    indicator.classList.add('active');
+                } else {
+                    indicator.classList.remove('active');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', () => {
+            if (!isVisible || isDragging || window.innerWidth <= 968) return;
+
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
+            const windowHeight = window.innerHeight;
+            const scrollPosition = window.scrollY;
+
+            const scrollRange = sectionHeight - windowHeight;
+            const relativeScroll = scrollPosition - sectionTop;
+            
+            let progress = relativeScroll / scrollRange;
+            progress = Math.max(0, Math.min(1, progress));
+
+            currentTranslate = -(progress * getMaxMove());
+            track.style.transform = `translateX(${currentTranslate}px)`;
+            
+            updateActiveStates();
+        });
+
+        const dragStart = (e) => {
+            if (window.innerWidth <= 968) return;
+            isDragging = true;
+            startX = (e.type === 'touchstart') ? e.touches[0].clientX : e.clientX;
+            prevTranslate = currentTranslate;
+            track.style.transition = 'none';
+        };
+
+        const dragMove = (e) => {
+            if (!isDragging) return;
+            const currentX = (e.type === 'touchmove') ? e.touches[0].clientX : e.clientX;
+            const currentMovedDistance = currentX - startX;
+            
+            currentTranslate = prevTranslate + currentMovedDistance;
+            
+            const maxMove = -getMaxMove();
+            if (currentTranslate > 0) currentTranslate = 0;
+            if (currentTranslate < maxMove) currentTranslate = maxMove;
+
+            track.style.transform = `translateX(${currentTranslate}px)`;
+            updateActiveStates();
+        };
+
+        const dragEnd = () => {
+            if (!isDragging) return;
+            isDragging = false;
+            track.style.transition = 'transform 0.4s cubic-bezier(0.25, 1, 0.5, 1)';
+            
+            if (isVisible) {
+                const maxMove = getMaxMove();
+                const progress = Math.abs(currentTranslate) / maxMove;
+                const sectionTop = section.offsetTop;
+                const scrollRange = section.offsetHeight - window.innerHeight;
+                
+                window.scrollTo({
+                    top: sectionTop + (progress * scrollRange),
+                    behavior: 'auto'
+                });
+            }
+        };
+
+        container.addEventListener('mousedown', dragStart);
+        container.addEventListener('mousemove', dragMove);
+        window.addEventListener('mouseup', dragEnd);
+        container.addEventListener('mouseleave', dragEnd);
+
+        container.addEventListener('touchstart', dragStart, { passive: true });
+        container.addEventListener('touchmove', dragMove, { passive: true });
+        window.addEventListener('touchend', dragEnd);
+        
+        setTimeout(() => updateActiveStates(), 100);
+    });
+    </script>
+</body>
+</html>

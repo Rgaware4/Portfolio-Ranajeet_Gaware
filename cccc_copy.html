@@ -1,0 +1,1422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Case Studies</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-deep: #05060B;
+            --bg-panel: #0D0E16;
+            --bg-contrast: #131625;
+            --action-coral: #FF4D67;
+            --status-mint: #35D4A5;
+            --accent-purple: #8B5CF6;
+            --ai-glow-blue: #00F0FF;
+            --ai-glow-purple: #D000FF;
+            --text-main: #FFFFFF;
+            --text-muted: #8E9CAE;
+            --text-dark: #3F4458;
+            --sidebar-width: 290px;
+            --max-page-width: 1360px;
+            --gradient: linear-gradient(135deg, #8b5cf6 0%, #06b6d4 100%);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            background-image: radial-gradient(circle at 15% 20%, rgba(0, 240, 255, 0.08), transparent 30%), radial-gradient(circle at 85% 80%, rgba(208, 0, 255, 0.08), transparent 30%);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        hr {
+            height: 1px;
+            background-color: rgba(255, 255, 255, 0.06);
+            border: none;
+        }
+
+        /* --------------------------------------------------------------------------
+           HEADER & NAVIGATION
+           -------------------------------------------------------------------------- */
+        .header1 {
+            position: fixed;
+            top: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: min(1200px, 92%);
+            z-index: 1000;
+            backdrop-filter: blur(20px);
+            background: rgba(9, 9, 11, .6);
+            border: 1px solid rgba(255, 255, 255, .05);
+            border-radius: 24px;
+            padding: 0 20px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        nav {
+            min-height: 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 800;
+            letter-spacing: -1px;
+            color: #ffffff;
+        }
+
+        .logo span {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .menu {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .menu a {
+            color: #a1a1aa;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .menu a.active {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700 !important;
+        }
+
+        /* --------------------------------------------------------------------------
+           LAYOUT & PAGE HEADERS
+           -------------------------------------------------------------------------- */
+        .page-grid-container {
+            max-width: var(--max-page-width);
+            margin: 0 auto;
+            padding: 0 24px 60px 24px;
+        }
+
+        .portfolio-header-zone {
+            margin-bottom: 30px;
+        }
+
+        .main-page-title {
+            font-size: clamp(2.2rem, 5vw, 3.5rem);
+            font-weight: 900;
+            letter-spacing: -2px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-tag-mini {
+            font-size: 0.65rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #E2E8F0;
+            opacity: 0.4;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        /* --------------------------------------------------------------------------
+           CAROUSEL / CHIPS
+           -------------------------------------------------------------------------- */
+        .chips-carousel-track {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 15px;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .chips-carousel-track::-webkit-scrollbar {
+            display: none;
+        }
+
+        .project-chip-btn {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: var(--text-muted);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.25s ease;
+            flex-shrink: 0;
+        }
+
+        .project-chip-btn.chip-active {
+            background: linear-gradient(135deg, var(--ai-glow-blue), var(--ai-glow-purple));
+            color: #FFFFFF;
+            border-color: transparent;
+            font-weight: 700;
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+        }
+
+        /* --------------------------------------------------------------------------
+           CASE STUDY WRAPPER & EXTERIOR
+           -------------------------------------------------------------------------- */
+        .case-study-root-wrapper {
+            display: none;
+            animation: caseFade 0.4s ease forwards;
+        }
+
+        .case-study-root-wrapper.case-active {
+            display: block;
+        }
+
+        @keyframes caseFade {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .case-study-exterior-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 24px;
+            margin-bottom: 32px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .exterior-header-number {
+            font-size: clamp(3rem, 6vw, 4.5rem);
+            font-weight: 900;
+            line-height: 0.9;
+            background: linear-gradient(180deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.02) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            user-select: none;
+        }
+
+        .exterior-header-body {
+            flex-grow: 1;
+        }
+
+        .exterior-header-body h2 {
+            font-size: clamp(1.4rem, 3vw, 2rem);
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+            margin-bottom: 8px;
+            color: #E2E8F0;
+        }
+
+        .exterior-header-body p {
+            font-size: 1rem;
+            color: #94A3B8;
+            line-height: 1.4;
+        }
+
+        /* --------------------------------------------------------------------------
+           UNIFIED CARD & NAVIGATION SIDEBAR
+           -------------------------------------------------------------------------- */
+        .case-study-unified-card {
+            background: rgba(13, 14, 22, 0.7);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 32px;
+            display: grid;
+            grid-template-columns: var(--sidebar-width) 1fr;
+            height: 720px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .card-navigation-sidebar {
+            background: #000312;
+            border-right: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 30px 16px;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            overflow-y: auto;
+        }
+
+        .sidebar-tabs-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            flex-grow: 1;
+        }
+
+        .tab-node-btn {
+            background: transparent;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+            text-align: left;
+            padding: 12px 14px;
+            border-radius: 12px;
+            color: var(--text-muted);
+            opacity: 0.7;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .tab-node-btn:hover {
+            opacity: 0.9;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .tab-node-indicator {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: transparent;
+            border: 2px solid var(--text-dark);
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .tab-node-btn h4 {
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.2px;
+            line-height: 1.2;
+            white-space: nowrap;
+        }
+
+        .tab-node-btn.active-tab {
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text-main);
+            opacity: 1;
+            box-shadow: inset 0 1px 0px rgba(255, 255, 255, 0.05);
+        }
+
+        .tab-node-btn.active-tab .tab-node-indicator {
+            background: var(--ai-glow-blue);
+            border-color: var(--ai-glow-blue);
+            box-shadow: 0 0 10px var(--ai-glow-blue);
+        }
+
+        /* Widget Card */
+        .ai-card {
+            position: relative;
+            width: 100%;
+            border-radius: 20px;
+            padding: 20px 16px;
+            margin-top: 20px;
+            overflow: hidden;
+            background: rgba(255,255,255,0.045);
+            border: 1px solid rgba(255,255,255,0.09);
+            backdrop-filter: blur(18px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .ai-icon-wrap {
+            position: relative;
+            z-index: 1;
+            width: 64px;
+            height: 64px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(145deg, #38bdf8 0%, #a78bfa 35%, #e879f9 65%, #fb923c 100%);
+            box-shadow: 0 10px 24px rgba(168,85,247,0.35);
+        }
+
+        .ai-icon-wrap svg {
+            width: 32px;
+            height: 32px;
+        }
+
+        /* --------------------------------------------------------------------------
+           CONTENT CONTAINER & SECTIONS
+           -------------------------------------------------------------------------- */
+        .card-contents-wrapper {
+            padding: 40px 45px;
+            overflow-y: auto;
+            height: 100%;
+            background: linear-gradient(145deg, rgba(13, 14, 22, 0.6) 0%, rgba(9, 13, 30, 0.84) 100%);
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255, 255, 255, 0.08) transparent;
+        }
+
+        .canvas-section-segment {
+            display: none;
+            animation: fadeInTab 0.35s ease forwards;
+        }
+
+        .canvas-section-segment.active-content-pane {
+            display: block;
+        }
+
+        @keyframes fadeInTab {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --------------------------------------------------------------------------
+           TYPOGRAPHY, GRID & DATA BLOCKS
+           -------------------------------------------------------------------------- */
+        .section-headline-main {
+            font-size: 1.6rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+
+        .text-gradient-coral {
+            background: linear-gradient(135deg, var(--ai-glow-blue) 0%, var(--ai-glow-purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .body-desc-premium {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .meta-specs-strip {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .spec-pill {
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 12px 16px;
+            border-radius: 10px;
+        }
+
+        .spec-pill span {
+            font-size: 0.65rem;
+            color: var(--text-dark);
+            text-transform: uppercase;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .spec-pill p {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #E2E8F0;
+        }
+
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .portfolio-data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 16px;
+            background: rgba(24, 24, 24, 0.13);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.05);
+            min-width: 500px;
+        }
+
+        .portfolio-data-table th, .portfolio-data-table td {
+            padding: 16px 18px;
+            text-align: left;
+            font-size: 0.95rem;
+            vertical-align: top;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .portfolio-data-table th {
+            background: rgba(255, 255, 255, 0.02); 
+            color: var(--text-muted);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.5px;
+        }
+
+        .portfolio-data-table ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .portfolio-data-table li {
+            position: relative;
+            padding-left: 12px;
+            margin-bottom: 6px;
+            line-height: 1.4;
+            color: #CBD5E1;
+        }
+
+        .portfolio-data-table li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--ai-glow-blue);
+        }
+
+        .asym-grid-block { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 20px; 
+            margin-top: 20px; 
+            margin-bottom: 24px;
+        }
+        
+        .data-panel-nested { 
+            background: #060606;
+            padding: 20px; 
+            border-radius: 12px; 
+            border: 1px solid rgba(255,255,255,0.06); 
+        }
+        
+        .data-panel-nested h4, .data-panel-nested h5 { 
+            font-size: 0.9rem; 
+            margin-bottom: 8px; 
+            font-weight: 700;
+        }
+
+        .flow-diagram-box {
+            background: #08090F;
+            padding: 24px;
+            border-radius: 12px;
+            border: 1px dashed rgba(255, 255, 255, 0.08);
+            font-family: monospace;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #E2E8F0;
+            overflow-x: auto;
+            margin-bottom: 28px;
+            white-space: pre-wrap;
+        }
+
+        .mockup-container {
+            background: #08090F;
+            width: 100%;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-dark);
+            font-size: 0.85rem;
+            margin-top: 16px;
+            overflow: hidden;
+        }
+
+        .img1 {
+            width: 100%;
+            height: auto;
+            max-height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+
+        .metrics-scoreboard-nested { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); 
+            gap: 1px; 
+            background: rgba(255,255,255,0.08); 
+            border-radius: 14px; 
+            overflow: hidden; 
+            margin-top: 24px;
+        }
+
+        .metric-card-nested { 
+            background: var(--bg-contrast); 
+            padding: 24px 16px; 
+            text-align: center; 
+        }
+
+        .metric-card-nested h3 { 
+            font-size: clamp(1.8rem, 4vw, 2.2rem); 
+            font-weight: 900; 
+            color: var(--status-mint); 
+            margin-bottom: 4px; 
+        }
+
+        .metric-card-nested p { 
+            font-size: 0.75rem; 
+            color: var(--text-muted); 
+            text-transform: uppercase; 
+            letter-spacing: 0.5px; 
+        }
+
+        /* --------------------------------------------------------------------------
+           UPCOMING CARD STYLES (MATCHES ATTACHED IMAGE)
+           -------------------------------------------------------------------------- */
+        .upcoming-container-card {
+            background: rgba(13, 14, 22, 0.75);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 32px;
+            padding: 80px 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            min-height: 540px;
+        }
+
+        .upcoming-illustration-box {
+            width: 180px;
+            height: 110px;
+            background: rgba(15, 18, 32, 0.8);
+            border: 1px solid rgba(139, 92, 246, 0.25);
+            border-radius: 16px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 28px;
+            box-shadow: inset 0 0 20px rgba(139, 92, 246, 0.1);
+        }
+
+        .upcoming-illustration-box::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 12px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            box-shadow: 10px 0 0 rgba(255,255,255,0.2), 20px 0 0 rgba(255,255,255,0.2);
+        }
+
+        .upcoming-lock-icon {
+            width: 42px;
+            height: 42px;
+            background: rgba(139, 92, 246, 0.15);
+            border: 1px solid rgba(139, 92, 246, 0.4);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #C084FC;
+        }
+
+        .upcoming-badge {
+            background: rgba(139, 92, 246, 0.12);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 20px;
+            padding: 6px 16px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: #C084FC;
+            text-transform: uppercase;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .upcoming-badge::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #C084FC;
+            box-shadow: 0 0 8px #C084FC;
+        }
+
+        .upcoming-title {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 900;
+            color: #FFFFFF;
+            letter-spacing: -0.5px;
+            margin-bottom: 16px;
+        }
+
+        .upcoming-description {
+            max-width: 580px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #94A3B8;
+            margin-bottom: 36px;
+        }
+
+        .upcoming-progress-section {
+            width: 100%;
+            max-width: 480px;
+            margin-bottom: 36px;
+        }
+
+        .upcoming-progress-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: #64748B;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .upcoming-progress-labels span:last-child {
+            color: #8B5CF6;
+        }
+
+        .upcoming-progress-track {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .upcoming-progress-fill {
+            width: 35%;
+            height: 100%;
+            background: linear-gradient(90deg, #38BDF8 0%, #8B5CF6 100%);
+            border-radius: 4px;
+        }
+
+        .upcoming-tags-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .upcoming-tag-pill {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #94A3B8;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            font-weight: 500;
+        }
+
+        /* --------------------------------------------------------------------------
+           MEDIA QUERIES (RESPONSIVE ADAPTATIONS)
+           -------------------------------------------------------------------------- */
+        @media (max-width: 1024px) {
+            .case-study-unified-card { 
+                grid-template-columns: 1fr; 
+                height: auto; 
+                border-radius: 20px;
+            }
+
+            .card-navigation-sidebar {
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+                padding: 16px;
+                height: auto;
+            }
+
+            .sidebar-tabs-group {
+                flex-direction: row;
+                overflow-x: auto;
+                padding-bottom: 8px;
+                scrollbar-width: none;
+            }
+
+            .sidebar-tabs-group::-webkit-scrollbar {
+                display: none;
+            }
+
+            .tab-node-btn {
+                width: auto;
+                flex-shrink: 0;
+            }
+
+            .ai-card {
+                display: none;
+            }
+
+            .card-contents-wrapper { 
+                overflow-y: visible; 
+                height: auto; 
+                padding: 24px 20px; 
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header1 {
+                position: relative;
+                top: 0;
+                left: 0;
+                transform: none;
+                width: 100%;
+                border-radius: 0;
+                border-left: none;
+                border-right: none;
+                border-top: none;
+            }
+
+            nav {
+                justify-content: center;
+                flex-direction: column;
+            }
+
+            .menu {
+                justify-content: center;
+                gap: 12px;
+            }
+
+            .page-grid-container {
+                padding: 30px 16px 40px 16px !important;
+            }
+
+            .case-study-exterior-header {
+                flex-direction: column;
+                gap: 8px;
+            }
+        }
+
+        /* --- RESPONSIVE SIDEBAR NAVIGATION --- */
+        .card-navigation-sidebar {
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+
+        @media (max-width: 1024px) {
+            .card-navigation-sidebar {
+                width: 100%;
+                margin-bottom: 1.5rem;
+            }
+
+            .sidebar-tabs-group {
+                display: flex;
+                flex-direction: row;
+                gap: 0.5rem;
+                overflow-x: auto;
+                white-space: nowrap;
+                padding-bottom: 8px;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: thin;
+            }
+
+            .tab-node-btn {
+                flex: 0 0 auto;
+                min-width: max-content;
+                padding: 10px 14px;
+            }
+
+            .tab-node-btn h4 {
+                font-size: 0.85rem;
+                white-space: nowrap;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .tab-node-btn {
+                padding: 8px 12px;
+            }
+            
+            .tab-node-btn h4 {
+                font-size: 0.8rem;
+            }
+
+            .upcoming-container-card {
+                padding: 40px 16px;
+            }
+        }
+
+        /* --- RESPONSIVE METRICS & ROI SCOREBOARD --- */
+        .metrics-scoreboard-nested {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            width: 100%;
+            box-sizing: border-box;
+            margin-top: 20px;
+        }
+
+        /* --- RESPONSIVE DATA TABLE & WRAPPER --- */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin-top: 16px;
+            border-radius: 8px;
+        }
+
+        .portfolio-data-table {
+            width: 100%;
+            min-width: 100%;
+            border-collapse: collapse;
+        }
+
+        @media (max-width: 768px) {
+            .metrics-scoreboard-nested {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+
+            .portfolio-data-table th, 
+            .portfolio-data-table td {
+                padding: 8px 10px;
+                font-size: 0.82rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .metrics-scoreboard-nested {
+                grid-template-columns: 1fr;
+            }
+            
+            .portfolio-data-table {
+                min-width: 500px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header1">
+        <div class="container">
+            <nav>
+                <div class="logo">Ranajeet Gaware<span>.</span></div>
+                <div class="menu">
+                    <a href="home.html">Profile</a>
+                    <a href="#expertise">Skills</a>
+                    <a href="cccc-Copy.html" class="active">Case Studies</a>
+                    <a href="Methodology.html">Methodology</a>
+                    <a href="contact_me.html">Contact me</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div class="page-grid-container" style="padding-top: 120px;">
+        <header class="portfolio-header-zone">
+            <h1 class="main-page-title">Case Studies</h1>
+        </header>
+
+        <!-- HEADER INTERACTIVE PROJECT CAROUSEL CHIPS -->
+        <header class="portfolio-header-zone">
+            <span class="section-tag-mini">Selected Case Studies</span>
+            <div class="chips-carousel-track">
+                <button class="project-chip-btn chip-active" data-case="pulse-health">Store Clustering and Assortment planning</button>
+                <button class="project-chip-btn" data-case="upcoming-1">Upcoming</button>
+                <button class="project-chip-btn" data-case="upcoming-2">Upcoming</button>
+                <button class="project-chip-btn" data-case="upcoming-3">Upcoming</button>
+            </div>
+        </header>
+        
+        <hr style="margin-top:0px; margin-bottom:30px;">
+
+        <!-- ==========================================================================
+             CASE STUDY 1: Store Clustering and Assortment planning
+             ========================================================================== -->
+        <div id="case-pulse-health" class="case-study-root-wrapper case-active">
+            <div class="case-study-exterior-header">
+                <div class="exterior-header-number">1</div>
+                <div class="exterior-header-body">
+                    <h2>Store Clustering and Assortment planning</h2>
+                    <p>Transforming Data-Dense Matrix Profiles into an Actionable Assortment Planning Interface</p>
+                </div>
+            </div>
+
+            <div class="case-study-unified-card">
+                <nav class="card-navigation-sidebar">
+                    <div class="sidebar-tabs-group">
+                        <button class="tab-node-btn active-tab" data-target="pulse-context">
+                            <div class="tab-node-indicator"></div>
+                            <h4>1. Context &amp; Profiles</h4>
+                        </button>
+                        <button class="tab-node-btn" data-target="pulse-friction">
+                            <div class="tab-node-indicator"></div>
+                            <h4>2. The Problem Statement</h4>
+                        </button>
+                        <button class="tab-node-btn" data-target="pulse-research">
+                            <div class="tab-node-indicator"></div>
+                            <h4>3. User Research Loop</h4>
+                        </button>
+                        <button class="tab-node-btn" data-target="pulse-architecture">
+                            <div class="tab-node-indicator"></div>
+                            <h4>4. Solution &amp; Intuitive Flow</h4>
+                        </button>
+                        <button class="tab-node-btn" data-target="pulse-journey">
+                            <div class="tab-node-indicator"></div>
+                            <h4>5. The User Journey and Ideation</h4>
+                        </button>
+                        <button class="tab-node-btn" data-target="pulse-prototype">
+                            <div class="tab-node-indicator"></div>
+                            <h4>6. High Fidelity Prototype Screens</h4>
+                        </button>
+                        <button class="tab-node-btn" data-target="pulse-validation">
+                            <div class="tab-node-indicator"></div>
+                            <h4>7. Usability Metrics &amp; ROI</h4>
+                        </button>
+                    </div>
+
+                    <div class="ai-card">
+                        <div class="ai-icon-wrap">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2L13.8 8.2L20 10L13.8 11.8L12 18L10.2 11.8L4 10L10.2 8.2L12 2Z" fill="white"/>
+                                <path d="M19 14L19.8 16.4L22 17.2L19.8 18L19 20.4L18.2 18L16 17.2L18.2 16.4L19 14Z" fill="white" fill-opacity="0.9"/>
+                                <path d="M5 13L5.6 14.8L7.4 15.4L5.6 16L5 17.8L4.4 16L2.6 15.4L4.4 14.8L5 13Z" fill="white" fill-opacity="0.85"/>
+                            </svg>
+                        </div>
+                    </div>
+                </nav>
+
+                <main class="card-contents-wrapper">
+                    
+                    <!-- TAB 1: CONTEXT & PROFILES -->
+                    <section id="pulse-context" class="canvas-section-segment active-content-pane">
+                        <div class="meta-specs-strip">
+                            <div class="spec-pill"><span>Role</span><p>Lead UX/UI Designer</p></div>
+                            <div class="spec-pill"><span>Timeline</span><p>12 Weeks (2026)</p></div>
+                            <div class="spec-pill"><span>Impact Margin</span><p>+4.2% Lift</p></div>
+                            <div class="spec-pill"><span>Turn Acceleration</span><p>18% Target Gain</p></div>
+                        </div>
+                        <hr style="margin-bottom: 24px;">
+                        <div class="data-panel-nested"> 
+                            <h3 class="section-headline-main text-gradient-coral" style="font-size: 1.35rem; margin-bottom: 12px;">The Challenge</h3>
+                            <p class="body-desc-premium">Large-scale US retail enterprises handle complex spatial and inventory allocation matrices. Previously, merchandising specialists and business analysts relied on disconnected legacy spreadsheets to manually cluster stores and push assortment updates. This disjointed approach led to margin leakage, excessive markdowns, and a total lack of end-to-end status visibility across regional nodes.</p>
+                            <p class="body-desc-premium" style="margin-bottom:0;">The objective was to design a unified, high-performance analytics interface—The Store Clustering Analytics Suite—that allows analysts to seamlessly initialize projects, review automated matrix models, and confidently deploy optimized localized assortments to production environments.</p>
+                        </div>
+                        <hr style="margin-top:24px;">
+                        <h3 class="section-headline-main" style="font-size: 1.1rem; margin-bottom: 12px; margin-top: 16px;">User Profiles</h3>
+                        <div class="data-panel-nested"> 
+                            <div class="table-responsive">
+                                <table class="portfolio-data-table">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 25%;">Persona</th>
+                                            <th style="width: 40%;">Primary Needs</th>
+                                            <th style="width: 35%;">Pain Points</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>Senior Merchandising Analyst</strong></td>
+                                            <td>
+                                                <ul>
+                                                    <li>Initialize multi-layered project parameters quickly.</li>
+                                                    <li>Fine-tune cluster boundaries based on product performance anomalies.</li>
+                                                </ul>
+                                            </td>
+                                            <td>
+                                                <ul>
+                                                    <li>Spent hours cross-referencing CSV files.</li>
+                                                    <li>High cognitive load when identifying which clusters were live or pending.</li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Director of Assortment Planning</strong></td>
+                                            <td>
+                                                <ul>
+                                                    <li>Oversee pipeline execution and sync velocity metrics.</li>
+                                                    <li>Evaluate ROI, margin impacts, and inventory turn acceleration post-deployment.</li>
+                                                </ul>
+                                            </td>
+                                            <td>
+                                                <ul>
+                                                    <li>Blind spots in pipeline latency.</li>
+                                                    <li>Inability to rapidly audit micro-tuned market segments before production deployment.</li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div> 
+                    </section>
+
+                    <!-- TAB 2: THE PROBLEM STATEMENT -->
+                    <section id="pulse-friction" class="canvas-section-segment">
+                        <h2 class="section-headline-main">The Problem Statement:<br><span class="text-gradient-coral">Managing Enterprise Data Density</span></h2>
+                        
+                        <p class="body-desc-premium" style="font-style: italic; color: #E2E8F0; border-left: 4px solid var(--ai-glow-blue); padding-left: 16px; font-size: 1rem; padding-top: 4px;">
+                            Retail planning teams lack a centralized, collaborative platform to manage the lifecycle of store clustering projects. Without a unified system, teams struggle with tracking project history, comparing forecasted performance, and ensuring stakeholder alignment, leading to suboptimal assortment decisions and slow response times to market shifts.
+                        </p>
+                        <hr style="margin: 24px 0;">
+                        <h3 class="section-headline-main" style="font-size: 1.1rem; margin-bottom: 16px;">Key Friction Points</h3>
+                        <div class="asym-grid-block">
+                            <div class="data-panel-nested">
+                                <h4 style="color: var(--action-coral); padding-bottom:12px;">The "Black Box" Deployment Anxiety</h4>
+                                <p>Because data is manually extracted and shared via email, users lack visibility into exactly how or where their cluster logic is being routed into downstream execution systems, causing massive hesitation during final handoffs.</p>
+                            </div>
+                            <div class="data-panel-nested">
+                                <h4 style="color: var(--accent-purple); padding-bottom:12px;">Status Ambiguity</h4>
+                                <p>Managing live, draft, and approved cluster configurations across scattered Word and Excel attachments creates an environment of high ambiguity, frequently leading to teams working out of outdated files and duplicating effort.</p>
+                            </div>
+                        </div>
+                        <div class="data-panel-nested" style="width: 100%;">
+                            <h4 style="padding-bottom:12px;">Context Fragmentation</h4>
+                            <p>Switching between micro-level cluster adjustments and macro-level pipeline health disrupted user focus and task completion.</p>
+                        </div>
+                    </section>
+
+                    <!-- TAB 3: USER RESEARCH LOOP -->
+                    <section id="pulse-research" class="canvas-section-segment">
+                        <h2 class="section-headline-main">User Research:<br><span class="text-gradient-coral">Methodology &amp; Deep-Dive</span></h2>
+                        <p class="body-desc-premium">To guide our architectural choices, we conducted mixed-methods research consisting of contextual inquiries and unmoderated tree-testing sessions with 8 internal retail analysts.</p>
+                        
+                        <div class="asym-grid-block">
+                            <div class="data-panel-nested">
+                                <h4 style="color: var(--accent-purple); padding-bottom:12px;">Fragmented Mental Models:</h4>
+                                <p>Analysts naturally divide their manual workflow into three distinct phases: scoping the project parameters, adjusting store assortments, and emailing the final rollout.</p>
+                            </div>
+                            <div class="data-panel-nested">
+                                <h4 style="color: var(--accent-purple); padding-bottom:12px;">Data Density &amp; Eye Strain</h4>
+                                <p>Because planners spend hours cross-referencing high-density, bright Excel sheets and Word files, they suffer from significant visual fatigue and miss critical status updates buried in text.</p>
+                            </div>
+                        </div>
+                        <hr style="margin: 24px 0;">
+                        <h3 class="section-headline-main" style="font-size: 1.1rem; margin-bottom: 12px;">Information Overload</h3>
+                        <div class="flow-diagram-box" style="background: rgba(20, 26, 43, 0.3);">
+• Clear division between Project Initialization (setting parameters), Deep-Dive Configuration (refining assortments), and Operational Deployment (managing live nodes).
+• Legacy spreadsheets present hundreds of unformatted store rows simultaneously, forcing analysts to manually filter data and increasing the risk of missing critical errors.
+                        </div>
+                    </section>
+
+                    <!-- TAB 4: SOLUTION & INTUITIVE FLOW -->
+                    <section id="pulse-architecture" class="canvas-section-segment">
+                        <h2 class="section-headline-main">Solution &amp; Intuitive User Flow:<br><span class="text-gradient-coral">The System Design System</span></h2>
+                        
+                        <div class="asym-grid-block">
+                            <div class="data-panel-nested">
+                                <h4 style="color: var(--status-mint); padding-bottom:12px;">Structured Information Architecture</h4>
+                                <p>Replaced the scattered document structure with a linear digital workspace divided into clear phases: Project Initialization, Assortment Configuration, and Forecast Review.</p>
+                            </div>
+                            <div class="data-panel-nested">
+                                <h4 style="color: var(--status-mint); padding-bottom:12px;">Macro-KPI Infrastructure &amp; High-Contrast Dark Theme</h4>
+                                <p>A top-level dashboard layer instantly exposes pipeline velocity (99.4%) and active optimized nodes (2,840). Implemented a dark-mode analytics suite specifically tailored to reduce optical fatigue.</p>
+                            </div>
+                        </div>
+                        <div class="data-panel-nested" style="width: 100%; margin-bottom: 24px;">
+                            <h4 style="color: var(--status-mint); padding-bottom:12px;">Progressive Disclosure Canvas</h4>
+                            <p>Transformed massive, flat Excel tables into interactive, responsive data views using clean pagination, scannable status badges, and structured inline actions to avoid workspace clutter.</p>
+                        </div>
+                        <hr style="margin: 24px 0;">
+                        <h3 class="section-headline-main" style="font-size: 1.1rem; margin-bottom: 12px;">Intuitive User Flow Mapping</h3>
+                        <div class="flow-diagram-box">
+[Overview / Hub Page] ──► Select "Create New" ──► Parameter Wizard (5 Steps) 
+                                                         │
+[Success Screen] ◄── Process Overlay ◄── Click "Publish Selected Cluster"
+                        </div>
+
+                        <h3 class="section-headline-main" style="font-size: 1.1rem; margin-top: 24px; margin-bottom: 12px;">User Flow Diagram</h3>
+                        <img src="User_Flow_map.png" class="img1" style="border-radius: 8px;" alt="User Flow Diagram">
+                    </section>
+
+                    <!-- TAB 5: THE USER JOURNEY AND IDEATION -->
+                    <section id="pulse-journey" class="canvas-section-segment">
+                        <h2 class="section-headline-main">The User Journey &amp; Ideation:<br><span class="text-gradient-coral">Mapping Mindsets to Structures</span></h2>
+                        <p class="body-desc-premium">By tracking emotional highs and friction thresholds across tasks, we translated cognitive needs directly into low-fidelity conceptual blocks before refining components.</p>
+                        
+                        <div class="asym-grid-block">
+                            <div class="data-panel-nested">
+                                <h5 style="color: var(--action-coral);">Phase A: Setup Exploration</h5>
+                                <p>Analysts struggle with initialization constraints. Fast sketching targeted flexible parameters configuration layouts.</p>
+                            </div>
+                            <div class="data-panel-nested">
+                                <h5 style="color: var(--status-mint);">Phase B: Auditing &amp; Trust</h5>
+                                <p>Ensuring visual safety feedback mechanisms before data sync sequences execution happens.</p>
+                            </div>
+                        </div>
+                        <hr style="margin: 24px 0;">
+                        <div class="mockup-container" style="border:1px solid #1a1a1a;">
+                            <img src="1.png" class="img1" alt="Ideation Concept">
+                        </div>
+                    </section>
+
+                    <!-- TAB 6: HIGH FIDELITY PROTOTYPE SCREENS -->
+                    <section id="pulse-prototype" class="canvas-section-segment">
+                        <h2 class="section-headline-main">High Fidelity Prototype Screens:<br><span class="text-gradient-coral">The Refined Product Suite</span></h2>
+                        <p class="body-desc-premium">Production-ready design patterns integrating heavy parameter density systems with clean visual hierarchies, micro-interactions, and distinct statuses language.</p>
+                        <hr style="margin: 24px 0;">
+                        <div class="mockup-container" style="border-style: dashed;">
+                            <img src="Store Cluster and Assortment planning.gif" class="img1" alt="Prototype Preview">
+                        </div>
+                    </section>
+
+                    <!-- TAB 7: USABILITY METRICS & ROI, IMPACT -->
+                    <section id="pulse-validation" class="canvas-section-segment">
+                        <h2 class="section-headline-main">Usability Metrics &amp; ROI, Impact:<br><span class="text-gradient-coral">Data-Backed Verification Loops</span></h2>
+                        <p class="body-desc-premium">Following a 4-week beta rollout, the new system architecture was validated using quantitative system telemetry and qualitative usability testing.</p>
+                        
+                        <div class="data-panel-nested">
+                            <div class="table-responsive">
+                                <table class="portfolio-data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Metric Measured</th>
+                                            <th>Legacy System</th>
+                                            <th>Optimized Interface</th>
+                                            <th>Improvement Delta</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>Task Completion Time</strong></td>
+                                            <td style="color: var(--action-coral); font-weight: 600;">8.5 - 16.5 hrs</td>
+                                            <td style="color: var(--status-mint); font-weight: 600;">1.50 hrs</td>
+                                            <td style="font-weight: 600;">-11.0 Hours (-88.0%)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>System Usability Scale (SUS) Score</strong></td>
+                                            <td style="color: var(--action-coral); font-weight: 600;">42.5 / 100</td>
+                                            <td style="color: var(--status-mint); font-weight: 600;">84.5 / 100</td>
+                                            <td>+98.8% - Excellent Grade</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>User Error Frequency Rate</strong></td>
+                                            <td style="color: var(--action-coral); font-weight: 600;">22.5%</td>
+                                            <td style="color: var(--status-mint); font-weight: 600;">2.8%</td>
+                                            <td>-19.7% Drop in Errors</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>First-Time Task Success Rate</strong></td>
+                                            <td style="color: var(--action-coral); font-weight: 600;">55.0%</td>
+                                            <td style="color: var(--status-mint); font-weight: 600;">96.5%</td>   
+                                            <td>+41.5% Success Rate</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <h3 class="section-headline-main" style="font-size: 1.1rem; margin-top: 32px; margin-bottom: 8px;">Macro Business Impact</h3>
+                        <p class="body-desc-premium" style="margin-bottom: 12px;"><strong>Fulfillment Synchronization:</strong> Pipeline sync velocity sustained at an optimal 99.4% performance efficiency.</p>
+                        <p class="body-desc-premium"><strong>Bottom-Line Revenue Metrics:</strong> The system achieved a direct +4.2% margin lift and an 18% turn acceleration by aligning hyper-localized assortments with core market demands, yielding an annualized lift of +$2.4M.</p>
+
+                        <div class="metrics-scoreboard-nested">
+                            <div class="metric-card-nested">
+                                <h3>99.4%</h3>
+                                <p>Sync Velocity</p>
+                            </div>
+                            <div class="metric-card-nested">
+                                <h3>+4.2%</h3>
+                                <p>Margin Lift</p>
+                            </div>
+                            <div class="metric-card-nested">
+                                <h3>+$2.4M</h3>
+                                <p>Annualized Lift</p>
+                            </div>
+                        </div>
+                    </section>
+                </main>
+            </div>
+        </div>
+
+        <!-- ==========================================================================
+             UPCOMING CASE STUDY 02
+             ========================================================================== -->
+        <div id="case-upcoming-1" class="case-study-root-wrapper">
+            <div class="upcoming-container-card">
+                <div class="upcoming-illustration-box">
+                    <div class="upcoming-lock-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                        </svg>
+                    </div>
+                </div>
+                
+                <div class="upcoming-badge">
+                    Case Study 02 — In Progress
+                </div>
+                
+                <h2 class="upcoming-title">Upcoming Case Study</h2>
+                
+                <p class="upcoming-description">
+                    This case study is currently being designed and documented. It will include a full breakdown of the research methodology, design decisions, prototype iterations, and validated impact metrics.
+                </p>
+
+                <div class="upcoming-progress-section">
+                    <div class="upcoming-progress-labels">
+                        <span>Documentation Progress</span>
+                        <span>In Research Phase</span>
+                    </div>
+                    <div class="upcoming-progress-track">
+                        <div class="upcoming-progress-fill"></div>
+                    </div>
+                </div>
+
+                <div class="upcoming-tags-group">
+                    <span class="upcoming-tag-pill">UX Research</span>
+                    <span class="upcoming-tag-pill">Wireframing</span>
+                    <span class="upcoming-tag-pill">Usability Testing</span>
+                    <span class="upcoming-tag-pill">AI Experience</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==========================================================================
+             UPCOMING CASE STUDY 03
+             ========================================================================== -->
+        <div id="case-upcoming-2" class="case-study-root-wrapper">
+            <div class="upcoming-container-card">
+                <div class="upcoming-illustration-box">
+                    <div class="upcoming-lock-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                        </svg>
+                    </div>
+                </div>
+                
+                <div class="upcoming-badge">
+                    Case Study 03 — In Progress
+                </div>
+                
+                <h2 class="upcoming-title">Upcoming Case Study</h2>
+                
+                <p class="upcoming-description">
+                    This case study is currently being designed and documented. It will include a full breakdown of the research methodology, design decisions, prototype iterations, and validated impact metrics.
+                </p>
+
+                <div class="upcoming-progress-section">
+                    <div class="upcoming-progress-labels">
+                        <span>Documentation Progress</span>
+                        <span>In Research Phase</span>
+                    </div>
+                    <div class="upcoming-progress-track">
+                        <div class="upcoming-progress-fill"></div>
+                    </div>
+                </div>
+
+                <div class="upcoming-tags-group">
+                    <span class="upcoming-tag-pill">UX Research</span>
+                    <span class="upcoming-tag-pill">Wireframing</span>
+                    <span class="upcoming-tag-pill">Usability Testing</span>
+                    <span class="upcoming-tag-pill">AI Experience</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==========================================================================
+             UPCOMING CASE STUDY 04
+             ========================================================================== -->
+        <div id="case-upcoming-3" class="case-study-root-wrapper">
+            <div class="upcoming-container-card">
+                <div class="upcoming-illustration-box">
+                    <div class="upcoming-lock-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                        </svg>
+                    </div>
+                </div>
+                
+                <div class="upcoming-badge">
+                    Case Study 04 — In Progress
+                </div>
+                
+                <h2 class="upcoming-title">Upcoming Case Study</h2>
+                
+                <p class="upcoming-description">
+                    This case study is currently being designed and documented. It will include a full breakdown of the research methodology, design decisions, prototype iterations, and validated impact metrics.
+                </p>
+
+                <div class="upcoming-progress-section">
+                    <div class="upcoming-progress-labels">
+                        <span>Documentation Progress</span>
+                        <span>In Research Phase</span>
+                    </div>
+                    <div class="upcoming-progress-track">
+                        <div class="upcoming-progress-fill"></div>
+                    </div>
+                </div>
+
+                <div class="upcoming-tags-group">
+                    <span class="upcoming-tag-pill">UX Research</span>
+                    <span class="upcoming-tag-pill">Wireframing</span>
+                    <span class="upcoming-tag-pill">Usability Testing</span>
+                    <span class="upcoming-tag-pill">AI Experience</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const chipButtons = document.querySelectorAll('.project-chip-btn');
+            const caseContainers = document.querySelectorAll('.case-study-root-wrapper');
+
+            chipButtons.forEach(chip => {
+                chip.addEventListener('click', () => {
+                    chipButtons.forEach(c => c.classList.remove('chip-active'));
+                    chip.classList.add('chip-active');
+
+                    const targetedCaseAttr = chip.getAttribute('data-case');
+
+                    caseContainers.forEach(container => {
+                        container.classList.remove('case-active');
+                        if (container.id === `case-${targetedCaseAttr}`) {
+                            container.classList.add('case-active');
+                            
+                            const entryTab = container.querySelector('.tab-node-btn');
+                            if(entryTab) entryTab.click();
+                        }
+                    });
+                });
+            });
+
+            const initializeInternalTabs = (scope) => {
+                const tabs = scope.querySelectorAll('.tab-node-btn');
+                const sections = scope.querySelectorAll('.canvas-section-segment');
+                const contentContainer = scope.querySelector('.card-contents-wrapper');
+
+                tabs.forEach(tab => {
+                    tab.addEventListener('click', () => {
+                        const targetSectionId = tab.getAttribute('data-target');
+
+                        tabs.forEach(t => t.classList.remove('active-tab'));
+                        tab.classList.add('active-tab');
+
+                        sections.forEach(sec => {
+                            sec.classList.remove('active-content-pane');
+                            if (sec.id === targetSectionId) {
+                                sec.classList.add('active-content-pane');
+                            }
+                        });
+
+                        if(contentContainer) contentContainer.scrollTop = 0;
+                    });
+                });
+            };
+
+            caseContainers.forEach(containerScope => initializeInternalTabs(containerScope));
+        });
+    </script>
+</body>
+</html>
