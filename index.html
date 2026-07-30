@@ -1,850 +1,278 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UX & AI Experience Designer Portfolio</title>
-    <link rel="stylesheet" href="style.css">
-    <!-- Google Fonts: Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <style>
-        .img1 {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 50%;
-        }
-
-        .img2 {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        /* Base Body Background Styling */
-        body {
-            position: relative;
-            background-color: #03070d;
-        }
-
-        /* 1. Global Page Background Canvas (Waves Animated across entire viewport) */
-        #globalWaveCanvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            pointer-events: none;
-            z-index: 0;
-            opacity: 0.18; /* Softened wave opacity across the whole page */
-        }
-
-        /* 2. Global Page Grid Overlay (Subtle HUD Grid across the entire page background) */
-        body::before {
-            content: "";
-            position: fixed;
-            inset: 0;
-            background-image: 
-                radial-gradient(circle at 20% 20%, rgba(0, 242, 254, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(79, 172, 254, 0.06) 0%, transparent 50%),
-                linear-gradient(to right, rgba(0, 242, 254, 0.02) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(0, 242, 254, 0.02) 1px, transparent 1px);
-            background-size: 100% 100%, 100% 100%, 32px 32px, 32px 32px;
-            pointer-events: none;
-            z-index: 0;
-            opacity: 0.25; /* Reduced grid opacity for a soft background presence */
-        }
-
-        /* Hero Wave Canvas Styling - Scoped overlay inside Hero Section */
-        .hero {
-            position: relative;
-            overflow: hidden;
-        }
-
-        #waveCanvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-            opacity: 0.3; /* Soft opacity for hero interactive wave overlay */
-        }
-
-        /* Ensure content sits above the canvas background layer */
-        header, section, .skills-marquee, footer, button#backToTop {
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero .container {
-            position: relative;
-            z-index: 2;
-        }
-
-        /* Clean Glassmorphism Cards without individual internal grids */
-        .case-card, .expertise-card, .profile-card, .float-card, .feature-box, .cta-card {
-         /*   background: rgba(8, 15, 26, 0.75) !important; */
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(0, 242, 254, 0.18) !important;
-            box-shadow: 0 10px 32px 0 rgba(0, 0, 0, 0.4), inset 0 0 0 1px rgba(255, 255, 255, 0.03);
-            transition: all 0.3s ease;
-        }
-
-        .case-card:hover, .expertise-card:hover {
-            border-color: rgba(0, 242, 254, 0.45) !important;
-            box-shadow: 0 14px 40px 0 rgba(0, 242, 254, 0.12), inset 0 0 0 1px rgba(0, 242, 254, 0.25);
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Navigation Header</title>
+  
+  <!-- Inter Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  
+  <!-- External CSS -->
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- FULL-PAGE SUBTLE WAVE BACKGROUND CANVAS -->
-    <canvas id="globalWaveCanvas"></canvas>
+  <!-- Dynamic Glow Backgrounds -->
+  <div class="glow one"></div>
+  <div class="glow two"></div>
+  <div id="scroll-progress"></div>
 
-    <!-- 1. SCROLL PROGRESS BAR -->
-    <div id="scroll-progress"></div>
+  <!-- Header Section -->
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">My<span>Site</span></div>
+        
+        <!-- Mobile Toggle Button -->
+        <button class="nav-toggle" aria-label="toggle navigation" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
 
-    <!-- 2. FLOATING GLOW CANVAS OBJECTS -->
-    <div class="glow one"></div>
-    <div class="glow two"></div>
-
-    <!-- 3. NAVIGATION HEADER -->
-    <header>
-        <div class="container">
-            <nav>
-                <div class="logo">Ranajeet Gaware<span>.</span></div>   
-                <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-                <div class="menu" id="navMenu" sty;e="Z-index:4500;">
-                    <a href="index.html" class="active">Profile</a>
-                    <a href="#expertise">Skills</a>
-                    <a href="cccc_copy.html">Case Studies</a>
-                    <a href="Methodology.html">Methodology</a>
-                    <a href="contact_me.html">Contact me</a>
-                </div>
-            </nav>
-        </div>
-    </header>
-
-    <!-- 4. HERO SECTION (Personalized Profile with Interactive Wave Background) -->
-    <section id="hero" class="hero">
-        <canvas id="waveCanvas"></canvas>
-        <div class="container">
-            <div class="hero-grid">
-                <div class="hero-left">
-                    <div class="badge">
-                        <div class="badge-dot"></div>
-                        <span>Open for UX / AI Experience Consultations</span>
-                    </div>
-                    <h1 class="hero-title">Designing Intuitive <span class="gradient">Digital Products</span></h1>
-                    <p class="hero-text">I am a Senior UX/AI Experience Designer based in Pune, combining structural precision with analytical insights to design flawless user journeys for AI ecosystems. Across my career, I've delivered high-impact solutions across diverse domains, including Healthcare, Fintech, Data Analytics, LMS, ERP, and Logistics.</p>
-                    <div class="hero-buttons">
-                        <a href="cccc_copy.html" class="btn btn-primary">Explore Case Studies</a>
-                        <a href="#cta" class="btn btn-secondary">Get In Touch</a>
-                    </div>
-                </div>
-                <div class="hero-right">
-                    <div class="profile-card">
-                        <div class="avatar"><img src="pf.jpg" alt="Ranajeet Gaware Profile" class="img1"></div>
-                        <div class="profile-name">
-                            <h2 class="profile-title">Ranajeet Gaware</h2>
-                            <h3 style="font-weight:500;">Senior UX/AI Experience Designer</h3>
-                            <p class="profile-role">Based in Pune, India</p>
-                        </div>
-                    </div>
-                    <div class="float-card float-one">
-                      
-                            <h4>10+ Years</h4>
-                        <p>Experience</p>
-                    </div>
-                    <div class="float-card float-two">
-                        <h4>AI Transparency</h4>
-                        <p>Driven by Trust</p>
-                    </div>
-                     <div class="float-card float-three" style="margin-left: 382px; margin-top: 29px;">
-                         <h4>User Research</h4>
-                        <p>Driven by Behavior</p>
-                    </div>  
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 5. SKILLS MARQUEE -->
-    <div class="skills-marquee">
-        <div class="marquee">
-            <div class="marquee-content">
-                <span>✦ User Research</span>
-                <span>✦ AI Experience Design (AIX)</span>
-                <span>✦ Human-AI Interaction</span>
-                <span>✦ Conversational Flows</span>
-                <span>✦ Cognitive Load Optimization</span>
-                <span>✦ Trust & Transparency</span>
-                <span>✦ User Research</span>
-                <span>✦ AI Experience Design (AIX)</span>
-            </div>
-        </div>
+        <!-- Navigation Links -->
+        <ul class="menu">
+          <li><a href="#home" class="active">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
     </div>
+  </header>
 
-    <!-- 6. CORE SYSTEMS OF EXECUTION -->
-    <section id="expertise" class="expertise">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-label">Core Capabilities</div>
-                <h2 class="section-title">Design & Research <span class="gradient">Specialties</span></h2>
-            </div>
-            
-            <div class="expertise-grid">
-                <!-- Card 1: UX Focus -->
-                <div class="expertise-card ux-card">
-                    <div>
-                        <div class="card-icon">🧠</div>
-                        <h3 class="card-title">User Experience (UX) Architecture</h3>
-                        <p class="card-text">Conducting deep customer empathy studies to build clean, frictionless application journeys that make complex steps feel effortless.</p>
-                    </div>
-                    <div class="tags">
-                        <span class="tag">UX Research</span>
-                        <span class="tag">User Personas</span>
-                        <span class="tag">Wireframing</span>
-                        <span class="tag">Usability Testing</span>
-                    </div>
-                </div>
-
-                <!-- Card 2: AI Experience Focus -->
-                <div class="expertise-card aix-card">
-                    <div>
-                        <div class="card-icon">
-                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <linearGradient id="ai-sparkle-gradient" x1="2" y1="2" x2="23.5" y2="22" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#8B5CF6" />
-      <stop offset="100%" stop-color="#00F0FF" />
-    </linearGradient>
-  </defs>
-  
-  <!-- Primary Sparkle -->
-  <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" fill="url(#ai-sparkle-gradient)"/>
-  
-  <!-- Secondary Accent Sparkle -->
-  <path d="M18.5 2L19.7 5.8L23.5 7L19.7 8.2L18.5 12L17.3 8.2L13.5 7L17.3 5.8L18.5 2Z" fill="url(#ai-sparkle-gradient)" opacity="0.8"/>
-</svg>
-</div>
-                        <h3 class="card-title">AI Experience (AIX) Design</h3>
-                        <p class="card-text">Crafts intuitive, human-centered interfaces for AI-powered products, ensuring complex artificial intelligence outputs feel natural, predictable, and fully trustworthy.</p>
-                    </div>
-                    <div class="tags">
-                        <span class="tag">AI UX Research</span>
-                        <span class="tag">Conversational UI</span>
-                        <span class="tag">Explainable AI (XAI)</span>
-                        <span class="tag">Feedback Loops</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Quantitative Skill Validation Grid Below -->
-            <div class="feature-stats">
-                <div class="feature-box fb-1">
-                    <div class="feature-number">01</div>
-                    <div class="feature-title">User & AI Research</div>
-                </div>
-                <div class="feature-box fb-2">
-                    <div class="feature-number">02</div>
-                    <div class="feature-title">Information Mapping</div>
-                </div>
-                <div class="feature-box fb-3">
-                    <div class="feature-number">03</div>
-                    <div class="feature-title">Human-AI Interface Design</div>
-                </div>
-                <div class="feature-box fb-4">
-                    <div class="feature-number">04</div>
-                    <div class="feature-title">Trust & Usability Testing</div>
-                </div>
-            </div>
+  <!-- Hero Section -->
+  <section id="home" class="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-left">
+          <div class="badge">
+            <span class="badge-dot"></span>
+            Available for new projects
+          </div>
+          <h1 class="hero-title">Designing <span class="gradient">Digital</span> Experiences</h1>
+          <p class="hero-text">Crafting modern, accessible, and high-performance digital interfaces and interactions.</p>
+          <div class="hero-buttons">
+            <a href="#contact" class="btn btn-primary">Get in Touch</a>
+            <a href="#services" class="btn btn-secondary">Explore Work</a>
+          </div>
         </div>
-    </section>
 
-    <!-- Home Page Case Studies Section -->
-    <section class="scroll-carousel-section car_bg">
-        <div class="carousel-sticky-wrapper">
-            <div class="container">
-                <div class="section-header">
-                    <div class="section-label">CASE STUDIES</div>
-                    <h2 class="section-title">Latest <span class="gradient">Case studies</span></h2>
-                </div>
+        <div class="hero-right">
+          <div class="profile-card">
+            <div class="avatar"></div>
+            <div class="profile-name">
+              <div class="profile-title">Alex Morgan</div>
+              <div class="profile-role">Product Designer & Developer</div>
             </div>
-
-            <!-- Horizontal Carousel Track Container -->
-            <div class="carousel-track-container" id="carouselContainer">
-              <div class="carousel-track" id="caseStudiesTrack">
-                    
-                    <!-- Card 1 -->
-                   <div class="case-card" data-index="1">
-                        <div class="card-left">
-                            <div>
-                                <span class="card-tag tag-purple">AI Assistant & Design</span>
-                                <h3 class="card-title">Upcoming</h3>
-                                <p class="card-text">Lorem Ipsum</p>
-                                <div class="card-meta">Lorem Ipsum</div>
-                            </div>
-                            <div class="card-bottom-content">
-                                <div class="card-metrics">
-                                    <div class="metric-box">
-                                        <span class="m-val">--</span>
-                                        <span class="m-lbl">Cognitive Friction</span>
-                                    </div>
-                                    <div class="metric-box">
-                                        <span class="m-val">--</span>
-                                        <span class="m-lbl">Task Completion</span>
-                                    </div>
-                                </div>
-                                <a href="#" class="btn-case">Read Case Study</a>
-                            </div>
-                        </div>
-                        <div class="card-right">
-                            <div class="wireframe-mockup layout-bottom">
-                                <div class="wf-header"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
-                                <div class="wf-main-block"></div>
-                                <div class="wf-grid-bottom"><div class="wf-block"></div><div class="wf-block"></div></div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <!-- Card 2 -->
-
-  <a href="cccc_copy.html" style="text-decoration: none;">
-                    <div class="case-card" data-index="2" >
-                        <div class="card-left">
-                            <div>
-                                <span class="card-tag tag-blue">Retail Analytics Suite</span>
-                                <h3 class="card-title">Optimizing Multi-Market Retail Assortments</h3>
-                                <p class="card-text">Designed an end-to-end operational workspace that transforms granular multi-attribute store performance data into highly targeted, macro-optimized location clusters.</p>
-                                <div class="card-meta">UX/UI Design • Data Architecture Layout</div>
-                            </div>
-                            <div class="card-bottom-content">
-                                <div class="card-metrics">
-                                    <div class="metric-box">
-                                        <span class="m-val">+42%</span>
-                                        <span class="m-lbl">Completion Speed</span>
-                                    </div>
-                                    <div class="metric-box">
-                                        <span class="m-val">+4.2%</span>
-                                        <span class="m-lbl">PROFIT MARGIN GROW</span>
-                                    </div>
-                                </div>
-                                <a href="#" class="btn-case">Read Case Study</a>
-                            </div>
-                        </div>
-                    <a href="cccc_copy.html" style="text-decoration: none;">   <div class="card-right">
-                            <div class="wireframe-mockup layout-top">
-                                <div class="wf-header"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
-                                <div class="wf-main-block"><img src="CS11.png" alt="Case Study Preview" class="img2"></div>
-                            </div></a> 
-                        </div>
-                    </div>
-                    </a>
-
-
-
-
-
-                   
-                    <!-- Card 3 -->
-                    <div class="case-card" data-index="3">
-                        <div class="card-left">
-                            <div>
-                                <span class="card-tag tag-blue">AI Assistant & Design</span>
-                                <h3 class="card-title">Upcoming</h3>
-                                <p class="card-text">Lorem Ipsum</p>
-                                <div class="card-meta">Lorem Ipsum</div>
-                            </div>
-                            <div class="card-bottom-content">
-                                <div class="card-metrics">
-                                    <div class="metric-box">
-                                        <span class="m-val">--</span>
-                                        <span class="m-lbl">Cognitive Friction</span>
-                                    </div>
-                                    <div class="metric-box">
-                                        <span class="m-val">--</span>
-                                        <span class="m-lbl">Task Completion</span>
-                                    </div>
-                                </div>
-                                <a href="#" class="btn-case">Read Case Study</a>
-                            </div>
-                        </div>
-                        <div class="card-right">
-                            <div class="wireframe-mockup layout-top">
-                                <div class="wf-header"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
-                                <div class="wf-main-block"></div>
-                                <div class="wf-grid-top"><div class="wf-block"></div><div class="wf-block"></div><div class="wf-block"></div></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card 4 -->
-                    <div class="case-card" data-index="4">
-                        <div class="card-left">
-                            <div>
-                                <span class="card-tag tag-blue">AI Assistant & Design</span>
-                                <h3 class="card-title">Upcoming</h3>
-                                <p class="card-text">Lorem Ipsum</p>
-                                <div class="card-meta">Lorem Ipsum</div>
-                            </div>
-                            <div class="card-bottom-content">
-                                <div class="card-metrics">
-                                    <div class="metric-box">
-                                        <span class="m-val">--</span>
-                                        <span class="m-lbl">Cognitive Friction</span>
-                                    </div>
-                                    <div class="metric-box">
-                                        <span class="m-val">--</span>
-                                        <span class="m-lbl">Task Completion</span>
-                                    </div>
-                                </div>
-                                <a href="#" class="btn-case">Read Case Study</a>
-                            </div>
-                        </div>
-                        <div class="card-right">
-                            <div class="wireframe-mockup layout-bottom">
-                                <div class="wf-header"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
-                                <div class="wf-grid-bottom"><div class="wf-block"></div><div class="wf-block"></div><div class="wf-block"></div></div>
-                                <div class="wf-main-block"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card 5: Final Call-To-Action Card -->
-                    <div class="case-card cta-card" data-index="5">
-                        <div class="cta-card-content">
-                            <div class="cta-icon-wrapper">
-                                <div class="cta-circles">
-                                    <div class="circle c1"></div>
-                                    <div class="circle c2"></div>
-                                </div>
-                            </div>
-                            <h3 class="cta-title" sty>Looking for more detailed breakdowns?</h3>
-                            <p class="cta-desc">Explore our complete collection of end-to-end design frameworks, code implementations, and systems architecture metrics.</p>
-                            <a href="cccc_copy.html" class="btn-case-more">Check more Case studies</a>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <!-- Dynamic Step Indicators -->
-            <div class="carousel-indicators-container">
-                <div class="indicator-step active" data-step="1"><span class="step-num">01</span><span class="step-line"></span></div>
-                <div class="indicator-step" data-step="2"><span class="step-num">02</span><span class="step-line"></span></div>
-                <div class="indicator-step" data-step="3"><span class="step-num">03</span><span class="step-line"></span></div>
-                <div class="indicator-step" data-step="4"><span class="step-num">04</span><span class="step-line"></span></div>
-            </div>
+          </div>
+          <div class="float-card float-one">
+            <h4>10+ Years</h4>
+            <p>Industry Experience</p>
+          </div>
+          <div class="float-card float-two">
+            <h4>99.8%</h4>
+            <p>Client Satisfaction</p>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- 8. STRATEGY PROCESS LAB -->
-    <section id="process" class="process">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-label">Our Blueprint</div>
-                <h2 class="section-title">The Non-Linear <span class="gradient">Methodology</span></h2>
-            </div>
+  <!-- Skills Marquee Divider -->
+  <div class="skills-marquee">
+    <div class="marquee">
+      <div class="marquee-content">
+        <span>UI/UX Design</span>
+        <span>Frontend Architecture</span>
+        <span>Design Systems</span>
+        <span>Interactive Prototypes</span>
+        <span>AI Interfaces</span>
+        <span>UI/UX Design</span>
+        <span>Frontend Architecture</span>
+        <span>Design Systems</span>
+        <span>Interactive Prototypes</span>
+        <span>AI Interfaces</span>
+      </div>
+    </div>
+  </div>
 
-            <div class="process-grid-split">
-                <!-- Track A: UX Design Process Column -->
-                <div class="process-track-column">
-                    <div class="track-header">
-                        <span class="track-icon">👤</span>
-                        <h3>UX Design Process</h3>
-                        <p>How I build clean, standard paths for the human end-user.</p>
-                    </div>
-                    
-                    <div class="process-step-card">
-                        <div class="step-num">01</div>
-                        <h4>UX Research & Discovery</h4>
-                        <p>Interviewing users and auditing competing platforms to reveal true behavioral pain points.</p>
-                    </div>
-                    <div class="process-step-card">
-                        <div class="step-num">02</div>
-                        <h4>Wireframing & Flow Design</h4>
-                        <p>Mapping out low-fidelity paths and layouts to test structural logic before styling anything.</p>
-                    </div>
-                    <div class="process-step-card">
-                        <div class="step-num">03</div>
-                        <h4>Interface Design & Testing</h4>
-                        <p>Polishing custom interface interactions and conducting live usability tests to verify tasks.</p>
-                    </div>
-                </div>
+  <!-- Core Expertise Section -->
+  <section id="services" class="expertise">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">Capabilities</div>
+        <h2 class="section-title">Core Expertise</h2>
+      </div>
 
-                <!-- Track B: AI Experience (AIX) Process Column -->
-                <div class="process-track-column">
-                    <div class="track-header">
-                        <span class="track-icon">🤖</span>
-                        <h3>AI Experience (AIX) Process</h3>
-                        <p>How I craft intuitive, human-centered interfaces for AI-powered products.</p>
-                    </div>
-                    
-                    <div class="process-step-card">
-                        <div class="step-num">01</div>
-                        <h4>AI UX Research & Context Mapping</h4>
-                        <p>Analyzing how users intend to prompt system capabilities and defining acceptable margins for AI error or drift.</p>
-                    </div>
-                    <div class="process-step-card">
-                        <div class="step-num">02</div>
-                        <h4>Interaction Architecture</h4>
-                        <p>Designing graceful handling states for loading, conversational threading, suggested prompt pills, and system latency.</p>
-                    </div>
-                    <div class="process-step-card">
-                        <div class="step-num">03</div>
-                        <h4>Trust & Feedback Loops</h4>
-                        <p>Implementing human-in-the-loop (HITL) checkpoints and clear explanation designs to give users ultimate authority.</p>
-                    </div>
-                </div>
-            </div>
+      <div class="expertise-grid">
+        <div class="expertise-card ux-card">
+          <div>
+            <div class="card-icon">⚡</div>
+            <h3 class="card-title">User Experience & Interface</h3>
+            <p class="card-text">Designing clean, scalable, and intuitive digital design systems built for modern web standards.</p>
+          </div>
+          <div class="tags">
+            <span class="tag">Figma</span>
+            <span class="tag">Design Systems</span>
+            <span class="tag">Accessibility</span>
+          </div>
         </div>
-    </section>
 
-    <!-- 9. CALL TO ACTION -->
-    <section id="cta" class="cta">
-        <div class="container">
-            <div class="cta-card">
-                <div class="cta-content">
-                    <h2 class="title">Ready to improve your user and AI experiences?</h2>
-                    <p class="subtitle">Let’s collaborate to balance beautiful design systems with seamless human-AI interaction mechanics.</p>
-                    <div class="cta-buttons">
-                        <a href="mailto:rgaware@outlook.com" class="btn btn-primary">Start Your Project</a>
-                    </div>
-                </div>
-            </div>
+        <div class="expertise-card aix-card">
+          <div>
+            <div class="card-icon">🤖</div>
+            <h3 class="card-title">AI & Interaction Design</h3>
+            <p class="card-text">Building next-generation intelligent interfaces powered by artificial intelligence and LLM integration.</p>
+          </div>
+          <div class="tags">
+            <span class="tag">AI UX</span>
+            <span class="tag">Prompt UI</span>
+            <span class="tag">Prototyping</span>
+          </div>
         </div>
-    </section>
+      </div>
 
-    <!-- 10. FOOTER -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-bottom">
-                <p>&copy; 2026 UX/AI Experience Design Portfolio. Operating out of Pune, MH.</p>
-            </div>
+      <!-- Feature Stats Grid -->
+      <div class="feature-stats">
+        <div class="feature-box fb-1">
+          <div class="feature-number">120+</div>
+          <div class="feature-title">Projects Delivered Successfully</div>
         </div>
-    </footer>
+        <div class="feature-box fb-2">
+          <div class="feature-number">45K</div>
+          <div class="feature-title">Active Platform Users</div>
+        </div>
+        <div class="feature-box fb-3">
+          <div class="feature-number">99.9%</div>
+          <div class="feature-title">System Uptime & Stability</div>
+        </div>
+        <div class="feature-box fb-4">
+          <div class="feature-number">18+</div>
+          <div class="feature-title">Design Awards Won</div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <button id="backToTop" aria-label="Back to top">↑</button>
+  <!-- Strategy Methodology -->
+  <section id="about" class="process">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">Framework</div>
+        <h2 class="section-title">Methodology</h2>
+      </div>
 
-    <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        // Mobile Navigation Toggle
-        const navToggle = document.getElementById('navToggle');
-        const navMenu = document.getElementById('navMenu');
+      <div class="process-grid-split">
+        <div class="process-track-column">
+          <div class="track-header">
+            <span class="track-icon">🎯</span>
+            <h3>Product Strategy</h3>
+            <p>From vision alignment to full implementation.</p>
+          </div>
+          <div class="process-step-card">
+            <div class="step-num">01</div>
+            <h4>Discovery & Research</h4>
+            <p>Analyzing target users, market requirements, and core KPIs.</p>
+          </div>
+          <div class="process-step-card">
+            <div class="step-num">02</div>
+            <h4>Architecture & Specs</h4>
+            <p>Mapping dynamic user flows and wireframing scalable UX structures.</p>
+          </div>
+        </div>
 
-        if (navToggle && navMenu) {
-            navToggle.addEventListener('click', () => {
-                navToggle.classList.toggle('active');
-                navMenu.classList.toggle('active');
-            });
+        <div class="process-track-column">
+          <div class="track-header">
+            <span class="track-icon">🚀</span>
+            <h3>Execution & Delivery</h3>
+            <p>High-speed agile development and visual design.</p>
+          </div>
+          <div class="process-step-card">
+            <div class="step-num">03</div>
+            <h4>Visual Engineering</h4>
+            <p>Creating polished responsive layouts with pixel-perfect details.</p>
+          </div>
+          <div class="process-step-card">
+            <div class="step-num">04</div>
+            <h4>Launch & Iterate</h4>
+            <p>Deploying production-ready code with continuous feedback loops.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-            navMenu.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', () => {
-                    navToggle.classList.remove('active');
-                    navMenu.classList.remove('active');
-                });
-            });
-        }
+  <!-- CTA Section -->
+  <section id="contact">
+    <div class="container">
+      <div class="cta-card">
+        <h2 class="title">Have a project in mind?</h2>
+        <p class="subtitle">Let's collaborate and build scalable, user-centric interfaces for your application.</p>
+        <a href="mailto:hello@example.com" class="btn btn-primary">Start a Conversation</a>
+      </div>
+    </div>
+  </section>
 
-        // Scroll Progress Bar & Back to Top
-        const progressBar = document.getElementById('scroll-progress');
-        const backToTopBtn = document.getElementById('backToTop');
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>&copy; 2026 MySite. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
 
-        window.addEventListener('scroll', () => {
-            const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
-            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrolled = (winScroll / height) * 100;
-            
-            if (progressBar) {
-                progressBar.style.width = scrolled + '%';
-            }
+  <button id="backToTop" aria-label="Back to top">↑</button>
 
-            if (backToTopBtn) {
-                if (winScroll > 300) {
-                    backToTopBtn.style.opacity = '1';
-                    backToTopBtn.style.pointerEvents = 'auto';
-                } else {
-                    backToTopBtn.style.opacity = '0';
-                    backToTopBtn.style.pointerEvents = 'none';
-                }
-            }
-        });
+  <!-- JavaScript -->
+  <script>
+    const navToggle = document.querySelector('.nav-toggle');
+    const navMenu = document.querySelector('.menu');
 
-        if (backToTopBtn) {
-            backToTopBtn.addEventListener('click', () => {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
-        }
-
-        // Global Subtle Background Wave Canvas Logic
-        const globalCanvas = document.getElementById('globalWaveCanvas');
-        if (globalCanvas) {
-            const gCtx = globalCanvas.getContext('2d');
-
-            function resizeGlobalCanvas() {
-                globalCanvas.width = window.innerWidth;
-                globalCanvas.height = window.innerHeight;
-            }
-
-            window.addEventListener('resize', resizeGlobalCanvas);
-            resizeGlobalCanvas();
-
-            const globalWaves = [
-                { yOffset: 0.2, length: 0.002, amplitude: 50, frequency: 0.01, color: 'rgba(79, 172, 254, 0.4)', speed: 0.003 },
-                { yOffset: 0.5, length: 0.0025, amplitude: 40, frequency: 0.015, color: 'rgba(0, 242, 254, 0.5)', speed: 0.005 },
-                { yOffset: 0.8, length: 0.002, amplitude: 45, frequency: 0.012, color: 'rgba(139, 92, 246, 0.35)', speed: 0.004 }
-            ];
-
-            let globalTime = 0;
-
-            function animateGlobalWaves() {
-                gCtx.clearRect(0, 0, globalCanvas.width, globalCanvas.height);
-
-                globalWaves.forEach((wave) => {
-                    gCtx.beginPath();
-                    gCtx.strokeStyle = wave.color;
-                    gCtx.lineWidth = 1;
-
-                    for (let x = 0; x < globalCanvas.width; x += 10) {
-                        let y = (globalCanvas.height * wave.yOffset) + 
-                                Math.sin(x * wave.length + globalTime * wave.speed) * wave.amplitude + 
-                                Math.cos(x * wave.frequency + globalTime) * 12;
-
-                        if (x === 0) {
-                            gCtx.moveTo(x, y);
-                        } else {
-                            gCtx.lineTo(x, y);
-                        }
-                    }
-                    gCtx.stroke();
-                });
-
-                globalTime += 0.02;
-                requestAnimationFrame(animateGlobalWaves);
-            }
-
-            animateGlobalWaves();
-        }
-
-        // Hero Wave Canvas & Mouse Interaction Logic
-        const canvas = document.getElementById('waveCanvas');
-        if (canvas) {
-            const ctx = canvas.getContext('2d');
-
-            function resizeCanvas() {
-                canvas.width = canvas.parentElement.offsetWidth;
-                canvas.height = canvas.parentElement.offsetHeight;
-            }
-
-            window.addEventListener('resize', resizeCanvas);
-            resizeCanvas();
-
-            const mouse = {
-                x: canvas.width / 2,
-                y: canvas.height / 2,
-                targetX: canvas.width / 2,
-                targetY: canvas.height / 2
-            };
-
-            window.addEventListener('mousemove', (e) => {
-                const rect = canvas.getBoundingClientRect();
-                mouse.targetX = e.clientX - rect.left;
-                mouse.targetY = e.clientY - rect.top;
-            });
-
-            const waves = [
-                { yOffset: 0.5, length: 0.003, amplitude: 40, frequency: 0.02, color: 'rgba(79, 172, 254, 0.15)', speed: 0.01 },
-                { yOffset: 0.55, length: 0.005, amplitude: 30, frequency: 0.03, color: 'rgba(0, 242, 254, 0.2)', speed: 0.015 },
-                { yOffset: 0.6, length: 0.002, amplitude: 50, frequency: 0.015, color: 'rgba(79, 172, 254, 0.08)', speed: 0.008 }
-            ];
-
-            let time = 0;
-
-            function animateWaves() {
-                mouse.x += (mouse.targetX - mouse.x) * 0.05;
-                mouse.y += (mouse.targetY - mouse.y) * 0.05;
-
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-                waves.forEach((wave) => {
-                    ctx.beginPath();
-                    ctx.strokeStyle = wave.color;
-                    ctx.lineWidth = 1.5;
-
-                    for (let x = 0; x < canvas.width; x += 5) {
-                        let distX = x - mouse.x;
-                        let distY = (canvas.height * wave.yOffset) - mouse.y;
-                        let distance = Math.sqrt(distX * distX + distY * distY);
-                        
-                        let mouseEffect = 0;
-                        if (distance < 250) {
-                            mouseEffect = (1 - distance / 250) * 30 * Math.sin(time * 2);
-                        }
-
-                        let y = (canvas.height * wave.yOffset) + 
-                                Math.sin(x * wave.length + time * wave.speed) * wave.amplitude + 
-                                Math.cos(x * wave.frequency + time) * 10 + 
-                                (mouse.y - canvas.height * wave.yOffset) * (1 / (distance * 0.05 + 1)) * 0.2;
-
-                        if (x === 0) {
-                            ctx.moveTo(x, y);
-                        } else {
-                            ctx.lineTo(x, y);
-                        }
-                    }
-                    ctx.stroke();
-                });
-
-                time += 0.05;
-                requestAnimationFrame(animateWaves);
-            }
-
-            animateWaves();
-        }
-
-        // Case Studies Scroll Carousel Logic
-        const section = document.querySelector('.scroll-carousel-section');
-        const container = document.getElementById('carouselContainer');
-        const track = document.getElementById('caseStudiesTrack');
-        const indicators = document.querySelectorAll('.indicator-step');
-        
-        if (!section || !track || !container) return;
-
-        let isVisible = false;
-        let currentTranslate = 0;
-        
-        let isDragging = false;
-        let startX = 0;
-        let prevTranslate = 0;
-
-        const sectionObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => { isVisible = entry.isIntersecting; });
-        }, { threshold: 0.01 });
-        sectionObserver.observe(section);
-
-        const getMaxMove = () => {
-            return track.scrollWidth - window.innerWidth + parseFloat(getComputedStyle(container).paddingLeft || 40);
-        };
-
-        const updateActiveStates = () => {
-            const cards = document.querySelectorAll('.case-card');
-            const viewportCenter = window.innerWidth / 2;
-            let closestCardIndex = 1;
-            let smallestDistance = Infinity;
-
-            cards.forEach((card) => {
-                const rect = card.getBoundingClientRect();
-                const cardCenter = rect.left + (rect.width / 2);
-                const distanceFromCenter = Math.abs(viewportCenter - cardCenter);
-
-                if (distanceFromCenter < smallestDistance) {
-                    smallestDistance = distanceFromCenter;
-                    closestCardIndex = parseInt(card.getAttribute('data-index'));
-                }
-            });
-
-            cards.forEach((card) => {
-                if (parseInt(card.getAttribute('data-index')) === closestCardIndex) {
-                    card.classList.add('active-card');
-                } else {
-                    card.classList.remove('active-card');
-                }
-            });
-
-            const activeIndicatorNum = Math.min(4, closestCardIndex);
-            indicators.forEach((indicator) => {
-                const stepNum = parseInt(indicator.getAttribute('data-step'));
-                if (stepNum === activeIndicatorNum) {
-                    indicator.classList.add('active');
-                } else {
-                    indicator.classList.remove('active');
-                }
-            });
-        };
-
-        window.addEventListener('scroll', () => {
-            if (!isVisible || isDragging || window.innerWidth <= 968) return;
-
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.offsetHeight;
-            const windowHeight = window.innerHeight;
-            const scrollPosition = window.scrollY;
-
-            const scrollRange = sectionHeight - windowHeight;
-            const relativeScroll = scrollPosition - sectionTop;
-            
-            let progress = relativeScroll / scrollRange;
-            progress = Math.max(0, Math.min(1, progress));
-
-            currentTranslate = -(progress * getMaxMove());
-            track.style.transform = `translateX(${currentTranslate}px)`;
-            
-            updateActiveStates();
-        });
-
-        const dragStart = (e) => {
-            if (window.innerWidth <= 968) return;
-            isDragging = true;
-            startX = (e.type === 'touchstart') ? e.touches[0].clientX : e.clientX;
-            prevTranslate = currentTranslate;
-            track.style.transition = 'none';
-        };
-
-        const dragMove = (e) => {
-            if (!isDragging) return;
-            const currentX = (e.type === 'touchmove') ? e.touches[0].clientX : e.clientX;
-            const currentMovedDistance = currentX - startX;
-            
-            currentTranslate = prevTranslate + currentMovedDistance;
-            
-            const maxMove = -getMaxMove();
-            if (currentTranslate > 0) currentTranslate = 0;
-            if (currentTranslate < maxMove) currentTranslate = maxMove;
-
-            track.style.transform = `translateX(${currentTranslate}px)`;
-            updateActiveStates();
-        };
-
-        const dragEnd = () => {
-            if (!isDragging) return;
-            isDragging = false;
-            track.style.transition = 'transform 0.4s cubic-bezier(0.25, 1, 0.5, 1)';
-            
-            if (isVisible) {
-                const maxMove = getMaxMove();
-                const progress = Math.abs(currentTranslate) / maxMove;
-                const sectionTop = section.offsetTop;
-                const scrollRange = section.offsetHeight - window.innerHeight;
-                
-                window.scrollTo({
-                    top: sectionTop + (progress * scrollRange),
-                    behavior: 'auto'
-                });
-            }
-        };
-
-        container.addEventListener('mousedown', dragStart);
-        container.addEventListener('mousemove', dragMove);
-        window.addEventListener('mouseup', dragEnd);
-        container.addEventListener('mouseleave', dragEnd);
-
-        container.addEventListener('touchstart', dragStart, { passive: true });
-        container.addEventListener('touchmove', dragMove, { passive: true });
-        window.addEventListener('touchend', dragEnd);
-        
-        setTimeout(() => updateActiveStates(), 100);
+    // Toggle menu state
+    navToggle.addEventListener('click', () => {
+      navToggle.classList.toggle('active');
+      navMenu.classList.toggle('active');
+      
+      const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
+      navToggle.setAttribute('aria-expanded', !isExpanded);
     });
-    </script>
+
+    // Close menu when clicking a link
+    document.querySelectorAll('.menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        navToggle.classList.remove('active');
+        navMenu.classList.remove('active');
+        navToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // Scroll Progress & Back to Top
+    const scrollProgress = document.getElementById('scroll-progress');
+    const backToTopBtn = document.getElementById('backToTop');
+
+    window.addEventListener('scroll', () => {
+      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = (window.scrollY / totalHeight) * 100;
+      if (scrollProgress) scrollProgress.style.width = `${progress}%`;
+
+      if (window.scrollY > 400) {
+        backToTopBtn.style.opacity = '1';
+        backToTopBtn.style.pointerEvents = 'auto';
+      } else {
+        backToTopBtn.style.opacity = '0';
+        backToTopBtn.style.pointerEvents = 'none';
+      }
+    });
+
+    backToTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+
 </body>
 </html>
