@@ -71,7 +71,7 @@
     </div>
   </header>
 
-  <!-- Hero Section -->
+<!-- Hero Section -->
   <section id="hero" class="hero">
         <canvas id="waveCanvas" width="1907" height="814"></canvas>
         <div class="container">
@@ -85,7 +85,7 @@
                     <p class="hero-text">I am a Senior UX/AI Experience Designer based in Pune, combining structural precision with analytical insights to design flawless user journeys for AI ecosystems. Across my career, I've delivered high-impact solutions across diverse domains, including Healthcare, Fintech, Data Analytics, LMS, ERP, and Logistics.</p>
                     <div class="hero-buttons">
                         <a href="cccc_copy.html" class="btn btn-primary">Explore Case Studies</a>
-                        <a href="contact_me.html" class="btn btn-secondary">Get In Touch</a>
+                        <a href="#cta" class="btn btn-secondary">Get In Touch</a>
                     </div>
                 </div>
                 <div class="hero-right">
@@ -259,8 +259,51 @@
     </div>
   </footer>
 
-  <button id="backToTop" aria-label="Back to top">↑</button>
+  <button id="backToTop" aria-label="Back to top">↑</button>  <!-- JavaScript -->
+  <script>
+    const navToggle = document.querySelector('.nav-toggle');
+    const navMenu = document.querySelector('.menu');
 
+    // Toggle menu state
+    navToggle.addEventListener('click', () => {
+      navToggle.classList.toggle('active');
+      navMenu.classList.toggle('active');
+      
+      const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
+      navToggle.setAttribute('aria-expanded', !isExpanded);
+    });
+
+    // Close menu when clicking a link
+    document.querySelectorAll('.menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        navToggle.classList.remove('active');
+        navMenu.classList.remove('active');
+        navToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // Scroll Progress & Back to Top
+    const scrollProgress = document.getElementById('scroll-progress');
+    const backToTopBtn = document.getElementById('backToTop');
+
+    window.addEventListener('scroll', () => {
+      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = (window.scrollY / totalHeight) * 100;
+      if (scrollProgress) scrollProgress.style.width = `${progress}%`;
+
+      if (window.scrollY > 400) {
+        backToTopBtn.style.opacity = '1';
+        backToTopBtn.style.pointerEvents = 'auto';
+      } else {
+        backToTopBtn.style.opacity = '0';
+        backToTopBtn.style.pointerEvents = 'none';
+      }
+    });
+
+    backToTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
   <!-- JavaScript -->
   <script>
     const navToggle = document.querySelector('.nav-toggle');
