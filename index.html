@@ -1,101 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Responsive Navigation Header</title>
-  
-  <!-- Inter Font -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
-  
-  <!-- External CSS -->
-  <link rel="stylesheet" href="style.css">
-  <style>
-  #waveCanvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 1;
-    opacity: 0.3;
-}
-.case-card, .expertise-card, .profile-card, .float-card, .feature-box, .cta-card {
-    background: rgba(8, 15, 26, 0.75) !important;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(0, 242, 254, 0.18) !important;
-    box-shadow: 0 10px 32px 0 rgba(0, 0, 0, 0.4), inset 0 0 0 1px rgba(255, 255, 255, 0.03);
-    transition: all 0.3s ease;
-}
-    .profile-card {
-    position: relative;
-    width: 100%;
-    max-width: 400px;
-    }
-    .tag-purple {
-    color: var(--purple);
-    background: rgba(139, 92, 246, 0.1);
-}
-    .card-tag {
-    font-size: 11px;
-    font-weight: 600;
-    display: inline-block;
-    margin-bottom: 14px;
-    padding: 6px 14px;
-    border-radius: 20px;
-}
-    .card-title {
-    font-size: clamp(20px, 3vw, 26px);
-    font-weight: 700;
-    line-height: 1.3;
-    color: rgb(255, 255, 255);
-    margin-bottom: 10px;
-}
-
-    .card-text {
-    font-size: 13px;
-    line-height: 1.6;
-    color: var(--muted);
-    margin-bottom: 12px;
-}
-    .card-meta {
-    font-size: 11px;
-    color: var(--muted);
-    font-family: monospace;
-}
-
-    .carousel-track-container {
-    width: 100%;
-    cursor: grab;
-    user-select: none;
-}
-    .card-metrics {
-    display: flex;
-    margin-bottom: 16px;
-    gap: 12px;
-}
-  </style>
-
-  <style>
-    .case-card, .expertise-card, .profile-card, .float-card, .feature-box, .cta-card {
-    background: rgba(8, 15, 26, 0.75) !important;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(0, 242, 254, 0.18) !important;
-    box-shadow: 0 10px 32px 0 rgba(0, 0, 0, 0.4), inset 0 0 0 1px rgba(255, 255, 255, 0.03);
-    transition: all 0.3s ease;
-}
-    card-left {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100%;
-    flex: 1.1 1 0%;
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UX & AI Experience Designer Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
         .img1 {
             width: 100%;
             height: 100%;
@@ -185,94 +99,44 @@
             border-color: rgba(0, 242, 254, 0.45) !important;
             box-shadow: 0 14px 40px 0 rgba(0, 242, 254, 0.12), inset 0 0 0 1px rgba(0, 242, 254, 0.25);
         }
-
-    /* Header Container */
-.site-header {
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
-  background-color: #333;
-  color: #fff;
-  z-index: 1000; /* Ensure header stays above main content */
-}
-
-/* Toggle Button */
-.nav-toggle {
-  background: none;
-  border: none;
-  color: white;
-  font-size: 1.5rem;
-  cursor: pointer;
-  z-index: 1002; /* Stays clickable above the open menu */
-}
-
-/* Mobile Nav Menu (Hidden by default on mobile) */
-.nav-menu {
-  position: absolute;
-  top: 100%; /* Positions directly below header */
-  left: 0;
-  width: 100%;
-  background-color: #444;
-  display: none; /* Hide menu initially */
-  z-index: 1001; /* Above body content, below or level with toggle button */
-}
-
-.nav-menu ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.nav-menu li a {
-  display: block;
-  padding: 1rem;
-  color: white;
-  text-decoration: none;
-}
-
-.nav-menu li a:hover {
-  background-color: #555;
-}
-
-/* Open State Triggered by JS */
-.nav-menu.is-active {
-  display: block;
-}
     </style>
-
 </head>
 <body>
 
-  <!-- Dynamic Glow Backgrounds -->
-  <div class="glow one"></div>
-  <div class="glow two"></div>
-  <div id="scroll-progress"></div>
+    <!-- FULL-PAGE SUBTLE WAVE BACKGROUND CANVAS -->
+    <canvas id="globalWaveCanvas"></canvas>
 
-  <!-- Header Section -->
-  <header class="site-header">
-  <div class="logo">MySite</div>
-  
-  <!-- Toggle Button -->
-  <button class="nav-toggle" aria-label="toggle navigation" aria-expanded="false">
-    <span class="hamburger"></span>
-  </button>
+    <!-- 1. SCROLL PROGRESS BAR -->
+    <div id="scroll-progress"></div>
 
-  <!-- Navigation Links -->
-  <nav class="nav-menu">
-    <ul>
-      <li><a href="#home">Home</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#services">Services</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
-</header>
-  
-  <!-- 4. HERO SECTION (Personalized Profile with Interactive Wave Background) -->
+    <!-- 2. FLOATING GLOW CANVAS OBJECTS -->
+    <div class="glow one"></div>
+    <div class="glow two"></div>
+
+    <!-- 3. NAVIGATION HEADER -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Ranajeet Gaware<span>.</span></div>   
+                <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <div class="menu" id="navMenu">
+                    <a href="home.html" class="active">Profile</a>
+                    <a href="#expertise">Skills</a>
+                    <a href="cccc_copy.html">Case Studies</a>
+                    <a href="Methodology.html">Methodology</a>
+                    <a href="contact_me.html">Contact me</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 4. HERO SECTION (Personalized Profile with Interactive Wave Background) -->
     <section id="hero" class="hero">
-        
+        <canvas id="waveCanvas"></canvas>
         <div class="container">
             <div class="hero-grid">
                 <div class="hero-left">
@@ -323,7 +187,7 @@
                 <span>✦ Human-AI Interaction</span>
                 <span>✦ Conversational Flows</span>
                 <span>✦ Cognitive Load Optimization</span>
-                <span>✦ Trust &amp; Transparency</span>
+                <span>✦ Trust & Transparency</span>
                 <span>✦ User Research</span>
                 <span>✦ AI Experience Design (AIX)</span>
             </div>
@@ -335,7 +199,7 @@
         <div class="container">
             <div class="section-header">
                 <div class="section-label">Core Capabilities</div>
-                <h2 class="section-title">Design &amp; Research <span class="gradient">Specialties</span></h2>
+                <h2 class="section-title">Design & Research <span class="gradient">Specialties</span></h2>
             </div>
             
             <div class="expertise-grid">
@@ -361,16 +225,16 @@
                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <linearGradient id="ai-sparkle-gradient" x1="2" y1="2" x2="23.5" y2="22" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#8B5CF6"></stop>
-      <stop offset="100%" stop-color="#00F0FF"></stop>
+      <stop offset="0%" stop-color="#8B5CF6" />
+      <stop offset="100%" stop-color="#00F0FF" />
     </linearGradient>
   </defs>
   
   <!-- Primary Sparkle -->
-  <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" fill="url(#ai-sparkle-gradient)"></path>
+  <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" fill="url(#ai-sparkle-gradient)"/>
   
   <!-- Secondary Accent Sparkle -->
-  <path d="M18.5 2L19.7 5.8L23.5 7L19.7 8.2L18.5 12L17.3 8.2L13.5 7L17.3 5.8L18.5 2Z" fill="url(#ai-sparkle-gradient)" opacity="0.8"></path>
+  <path d="M18.5 2L19.7 5.8L23.5 7L19.7 8.2L18.5 12L17.3 8.2L13.5 7L17.3 5.8L18.5 2Z" fill="url(#ai-sparkle-gradient)" opacity="0.8"/>
 </svg>
 </div>
                         <h3 class="card-title">AI Experience (AIX) Design</h3>
@@ -389,7 +253,7 @@
             <div class="feature-stats">
                 <div class="feature-box fb-1">
                     <div class="feature-number">01</div>
-                    <div class="feature-title">User &amp; AI Research</div>
+                    <div class="feature-title">User & AI Research</div>
                 </div>
                 <div class="feature-box fb-2">
                     <div class="feature-number">02</div>
@@ -401,7 +265,7 @@
                 </div>
                 <div class="feature-box fb-4">
                     <div class="feature-number">04</div>
-                    <div class="feature-title">Trust &amp; Usability Testing</div>
+                    <div class="feature-title">Trust & Usability Testing</div>
                 </div>
             </div>
         </div>
@@ -419,13 +283,13 @@
 
             <!-- Horizontal Carousel Track Container -->
             <div class="carousel-track-container" id="carouselContainer">
-              <div class="carousel-track" id="caseStudiesTrack" style="transform: translateX(0px); transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);">
+              <div class="carousel-track" id="caseStudiesTrack">
                     
                     <!-- Card 1 -->
                    <div class="case-card" data-index="1">
                         <div class="card-left">
                             <div>
-                                <span class="card-tag tag-purple">AI Assistant &amp; Design</span>
+                                <span class="card-tag tag-purple">AI Assistant & Design</span>
                                 <h3 class="card-title">Upcoming</h3>
                                 <p class="card-text">Lorem Ipsum</p>
                                 <div class="card-meta">Lorem Ipsum</div>
@@ -457,15 +321,15 @@
                     <!-- Card 2 -->
 
   <a href="cccc_copy.html" style="text-decoration: none;">
-                    </a><div class="case-card active-card" data-index="2"><a href="cccc_copy.html" style="text-decoration: none;">
-                        </a><div class="card-left"><a href="cccc_copy.html" style="text-decoration: none;">
+                    <div class="case-card" data-index="2" >
+                        <div class="card-left">
                             <div>
                                 <span class="card-tag tag-blue">Retail Analytics Suite</span>
                                 <h3 class="card-title">Optimizing Multi-Market Retail Assortments</h3>
                                 <p class="card-text">Designed an end-to-end operational workspace that transforms granular multi-attribute store performance data into highly targeted, macro-optimized location clusters.</p>
                                 <div class="card-meta">UX/UI Design • Data Architecture Layout</div>
                             </div>
-                            </a><div class="card-bottom-content"><a href="cccc_copy.html" style="text-decoration: none;">
+                            <div class="card-bottom-content">
                                 <div class="card-metrics">
                                     <div class="metric-box">
                                         <span class="m-val">+42%</span>
@@ -476,17 +340,17 @@
                                         <span class="m-lbl">PROFIT MARGIN GROW</span>
                                     </div>
                                 </div>
-                                </a><a href="#" class="btn-case">Read Case Study</a>
+                                <a href="#" class="btn-case">Read Case Study</a>
                             </div>
                         </div>
-                    <a href="cccc_copy.html" style="text-decoration: none;">   </a><div class="card-right"><a href="cccc_copy.html" style="text-decoration: none;">
+                    <a href="cccc_copy.html" style="text-decoration: none;">   <div class="card-right">
                             <div class="wireframe-mockup layout-top">
                                 <div class="wf-header"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
                                 <div class="wf-main-block"><img src="CS11.png" alt="Case Study Preview" class="img2"></div>
                             </div></a> 
                         </div>
                     </div>
-                    
+                    </a>
 
 
 
@@ -497,7 +361,7 @@
                     <div class="case-card" data-index="3">
                         <div class="card-left">
                             <div>
-                                <span class="card-tag tag-blue">AI Assistant &amp; Design</span>
+                                <span class="card-tag tag-blue">AI Assistant & Design</span>
                                 <h3 class="card-title">Upcoming</h3>
                                 <p class="card-text">Lorem Ipsum</p>
                                 <div class="card-meta">Lorem Ipsum</div>
@@ -529,7 +393,7 @@
                     <div class="case-card" data-index="4">
                         <div class="card-left">
                             <div>
-                                <span class="card-tag tag-blue">AI Assistant &amp; Design</span>
+                                <span class="card-tag tag-blue">AI Assistant & Design</span>
                                 <h3 class="card-title">Upcoming</h3>
                                 <p class="card-text">Lorem Ipsum</p>
                                 <div class="card-meta">Lorem Ipsum</div>
@@ -566,7 +430,7 @@
                                     <div class="circle c2"></div>
                                 </div>
                             </div>
-                            <h3 class="cta-title" sty="">Looking for more detailed breakdowns?</h3>
+                            <h3 class="cta-title" sty>Looking for more detailed breakdowns?</h3>
                             <p class="cta-desc">Explore our complete collection of end-to-end design frameworks, code implementations, and systems architecture metrics.</p>
                             <a href="cccc_copy.html" class="btn-case-more">Check more Case studies</a>
                         </div>
@@ -577,8 +441,8 @@
 
             <!-- Dynamic Step Indicators -->
             <div class="carousel-indicators-container">
-                <div class="indicator-step" data-step="1"><span class="step-num">01</span><span class="step-line"></span></div>
-                <div class="indicator-step active" data-step="2"><span class="step-num">02</span><span class="step-line"></span></div>
+                <div class="indicator-step active" data-step="1"><span class="step-num">01</span><span class="step-line"></span></div>
+                <div class="indicator-step" data-step="2"><span class="step-num">02</span><span class="step-line"></span></div>
                 <div class="indicator-step" data-step="3"><span class="step-num">03</span><span class="step-line"></span></div>
                 <div class="indicator-step" data-step="4"><span class="step-num">04</span><span class="step-line"></span></div>
             </div>
@@ -604,17 +468,17 @@
                     
                     <div class="process-step-card">
                         <div class="step-num">01</div>
-                        <h4>UX Research &amp; Discovery</h4>
+                        <h4>UX Research & Discovery</h4>
                         <p>Interviewing users and auditing competing platforms to reveal true behavioral pain points.</p>
                     </div>
                     <div class="process-step-card">
                         <div class="step-num">02</div>
-                        <h4>Wireframing &amp; Flow Design</h4>
+                        <h4>Wireframing & Flow Design</h4>
                         <p>Mapping out low-fidelity paths and layouts to test structural logic before styling anything.</p>
                     </div>
                     <div class="process-step-card">
                         <div class="step-num">03</div>
-                        <h4>Interface Design &amp; Testing</h4>
+                        <h4>Interface Design & Testing</h4>
                         <p>Polishing custom interface interactions and conducting live usability tests to verify tasks.</p>
                     </div>
                 </div>
@@ -629,7 +493,7 @@
                     
                     <div class="process-step-card">
                         <div class="step-num">01</div>
-                        <h4>AI UX Research &amp; Context Mapping</h4>
+                        <h4>AI UX Research & Context Mapping</h4>
                         <p>Analyzing how users intend to prompt system capabilities and defining acceptable margins for AI error or drift.</p>
                     </div>
                     <div class="process-step-card">
@@ -639,7 +503,7 @@
                     </div>
                     <div class="process-step-card">
                         <div class="step-num">03</div>
-                        <h4>Trust &amp; Feedback Loops</h4>
+                        <h4>Trust & Feedback Loops</h4>
                         <p>Implementing human-in-the-loop (HITL) checkpoints and clear explanation designs to give users ultimate authority.</p>
                     </div>
                 </div>
@@ -666,101 +530,13 @@
     <footer class="footer">
         <div class="container">
             <div class="footer-bottom">
-                <p>© 2026 UX/AI Experience Design Portfolio. Operating out of Pune, MH.</p>
+                <p>&copy; 2026 UX/AI Experience Design Portfolio. Operating out of Pune, MH.</p>
             </div>
         </div>
     </footer>
 
-    <button id="backToTop" aria-label="Back to top" style="opacity: 1; pointer-events: auto;">↑</button>
-  <script>
-    const navToggle = document.querySelector('.nav-toggle');
-    const navMenu = document.querySelector('.menu');
+    <button id="backToTop" aria-label="Back to top">↑</button>
 
-    // Toggle menu state
-    navToggle.addEventListener('click', () => {
-      navToggle.classList.toggle('active');
-      navMenu.classList.toggle('active');
-      
-      const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
-      navToggle.setAttribute('aria-expanded', !isExpanded);
-    });
-
-    // Close menu when clicking a link
-    document.querySelectorAll('.menu a').forEach(link => {
-      link.addEventListener('click', () => {
-        navToggle.classList.remove('active');
-        navMenu.classList.remove('active');
-        navToggle.setAttribute('aria-expanded', 'false');
-      });
-    });
-
-    // Scroll Progress & Back to Top
-    const scrollProgress = document.getElementById('scroll-progress');
-    const backToTopBtn = document.getElementById('backToTop');
-
-    window.addEventListener('scroll', () => {
-      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = (window.scrollY / totalHeight) * 100;
-      if (scrollProgress) scrollProgress.style.width = `${progress}%`;
-
-      if (window.scrollY > 400) {
-        backToTopBtn.style.opacity = '1';
-        backToTopBtn.style.pointerEvents = 'auto';
-      } else {
-        backToTopBtn.style.opacity = '0';
-        backToTopBtn.style.pointerEvents = 'none';
-      }
-    });
-
-    backToTopBtn.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-  </script>
-  <!-- JavaScript -->
-  <script>
-    const navToggle = document.querySelector('.nav-toggle');
-    const navMenu = document.querySelector('.menu');
-
-    // Toggle menu state
-    navToggle.addEventListener('click', () => {
-      navToggle.classList.toggle('active');
-      navMenu.classList.toggle('active');
-      
-      const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
-      navToggle.setAttribute('aria-expanded', !isExpanded);
-    });
-
-    // Close menu when clicking a link
-    document.querySelectorAll('.menu a').forEach(link => {
-      link.addEventListener('click', () => {
-        navToggle.classList.remove('active');
-        navMenu.classList.remove('active');
-        navToggle.setAttribute('aria-expanded', 'false');
-      });
-    });
-
-    // Scroll Progress & Back to Top
-    const scrollProgress = document.getElementById('scroll-progress');
-    const backToTopBtn = document.getElementById('backToTop');
-
-    window.addEventListener('scroll', () => {
-      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = (window.scrollY / totalHeight) * 100;
-      if (scrollProgress) scrollProgress.style.width = `${progress}%`;
-
-      if (window.scrollY > 400) {
-        backToTopBtn.style.opacity = '1';
-        backToTopBtn.style.pointerEvents = 'auto';
-      } else {
-        backToTopBtn.style.opacity = '0';
-        backToTopBtn.style.pointerEvents = 'none';
-      }
-    });
-
-    backToTopBtn.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-  </script>
     <script>
     document.addEventListener('DOMContentLoaded', () => {
         // Mobile Navigation Toggle
