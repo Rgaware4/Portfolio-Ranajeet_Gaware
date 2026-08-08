@@ -44,9 +44,7 @@
             border: none;
         }
 
-        /* --------------------------------------------------------------------------
-           HEADER & NAVIGATION
-           -------------------------------------------------------------------------- */
+        /* HEADER */
         .header1 {
             position: fixed;
             top: 24px;
@@ -55,11 +53,12 @@
             width: min(1200px, 92%);
             z-index: 1000;
             backdrop-filter: blur(20px);
-            background: rgba(9, 9, 11, .6);
-            border: 1px solid rgba(255, 255, 255, .05);
+            background: rgba(9, 9, 11, .85);
+            border: 1px solid rgba(255, 255, 255, .08);
             border-radius: 24px;
             padding: 0 20px;
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s ease;
         }
 
         .container {
@@ -74,8 +73,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 10px 0;
-            flex-wrap: wrap;
-            gap: 15px;
+            position: relative;
         }
 
         .logo {
@@ -94,7 +92,7 @@
         .menu {
             display: flex;
             gap: 20px;
-            flex-wrap: wrap;
+            align-items: center;
         }
 
         .menu a {
@@ -105,6 +103,10 @@
             transition: color 0.3s ease;
         }
 
+        .menu a.active, .menu a:hover {
+            color: #ffffff;
+        }
+
         .menu a.active {
             background: var(--gradient);
             -webkit-background-clip: text;
@@ -112,17 +114,39 @@
             font-weight: 700 !important;
         }
 
-        /* --------------------------------------------------------------------------
-           LAYOUT & PAGE HEADERS
-           -------------------------------------------------------------------------- */
+        .nav-toggle {
+            display: none;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 5px;
+            padding: 8px;
+            z-index: 1001;
+        }
+
+        .nav-toggle span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background-color: var(--text-main);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-toggle.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .nav-toggle.active span:nth-child(2) { opacity: 0; }
+        .nav-toggle.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        /* LAYOUT & PAGE HEADERS */
         .page-grid-container {
             max-width: var(--max-page-width);
             margin: 0 auto;
-            padding: 0 24px 60px 24px;
+            padding: 120px 24px 60px 24px;
         }
 
         .portfolio-header-zone {
-            margin-bottom: 30px;
+            margin-bottom: 24px;
         }
 
         .main-page-title {
@@ -145,9 +169,7 @@
             display: block;
         }
 
-        /* --------------------------------------------------------------------------
-           CAROUSEL / CHIPS
-           -------------------------------------------------------------------------- */
+        /* PROJECT CAROUSEL CHIPS */
         .chips-carousel-track {
             display: flex;
             gap: 10px;
@@ -155,10 +177,18 @@
             padding-bottom: 15px;
             scrollbar-width: none;
             -webkit-overflow-scrolling: touch;
+            cursor: grab;
+            user-select: none;
+            touch-action: pan-x;
+            overscroll-behavior-x: contain;
         }
-        
+
         .chips-carousel-track::-webkit-scrollbar {
             display: none;
+        }
+
+        .chips-carousel-track:active {
+            cursor: grabbing;
         }
 
         .project-chip-btn {
@@ -183,9 +213,7 @@
             box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
         }
 
-        /* --------------------------------------------------------------------------
-           CASE STUDY WRAPPER & EXTERIOR
-           -------------------------------------------------------------------------- */
+        /* CASE STUDY WRAPPER */
         .case-study-root-wrapper {
             display: none;
             animation: caseFade 0.4s ease forwards;
@@ -238,9 +266,7 @@
             line-height: 1.4;
         }
 
-        /* --------------------------------------------------------------------------
-           UNIFIED CARD & NAVIGATION SIDEBAR
-           -------------------------------------------------------------------------- */
+        /* UNIFIED CARD & NAVIGATION SIDEBAR (DESKTOP) */
         .case-study-unified-card {
             background: rgba(13, 14, 22, 0.7);
             backdrop-filter: blur(25px);
@@ -261,7 +287,8 @@
             display: flex;
             flex-direction: column;
             height: 100%;
-           
+            box-sizing: border-box;
+            z-index: 10;
         }
 
         .sidebar-tabs-group {
@@ -273,7 +300,7 @@
 
         .tab-node-btn {
             background: transparent;
-            border: none;
+            border: 1px solid transparent;
             display: flex;
             align-items: center;
             gap: 12px;
@@ -285,6 +312,8 @@
             opacity: 0.7;
             cursor: pointer;
             transition: all 0.2s ease;
+            white-space: normal;
+            flex-shrink: 0;
         }
 
         .tab-node-btn:hover {
@@ -307,7 +336,6 @@
             font-weight: 600;
             letter-spacing: 0.2px;
             line-height: 1.2;
-            white-space: nowrap;
         }
 
         .tab-node-btn.active-tab {
@@ -315,6 +343,7 @@
             color: var(--text-main);
             opacity: 1;
             box-shadow: inset 0 1px 0px rgba(255, 255, 255, 0.05);
+            border-color: rgba(0, 240, 255, 0.2);
         }
 
         .tab-node-btn.active-tab .tab-node-indicator {
@@ -323,7 +352,6 @@
             box-shadow: 0 0 10px var(--ai-glow-blue);
         }
 
-        /* Widget Card */
         .ai-card {
             position: relative;
             width: 100%;
@@ -358,9 +386,7 @@
             height: 32px;
         }
 
-        /* --------------------------------------------------------------------------
-           CONTENT CONTAINER & SECTIONS
-           -------------------------------------------------------------------------- */
+        /* CONTENT CONTAINER & SECTIONS */
         .card-contents-wrapper {
             padding: 40px 45px;
             overflow-y: auto;
@@ -384,9 +410,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* --------------------------------------------------------------------------
-           TYPOGRAPHY, GRID & DATA BLOCKS
-           -------------------------------------------------------------------------- */
+        /* TYPOGRAPHY, GRID & DATA BLOCKS */
         .section-headline-main {
             font-size: 1.6rem;
             font-weight: 800;
@@ -441,14 +465,14 @@
             width: 100%;
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
+            border-radius: 12px;
+            margin-top: 16px;
         }
 
         .portfolio-data-table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 16px;
             background: rgba(24, 24, 24, 0.13);
-            border-radius: 12px;
             overflow: hidden;
             border: 1px solid rgba(255,255,255,0.05);
             min-width: 500px;
@@ -578,9 +602,7 @@
             letter-spacing: 0.5px; 
         }
 
-        /* --------------------------------------------------------------------------
-           UPCOMING CARD STYLES (MATCHES ATTACHED IMAGE)
-           -------------------------------------------------------------------------- */
+        /* UPCOMING CARD STYLES */
         .upcoming-container-card {
             background: rgba(13, 14, 22, 0.75);
             backdrop-filter: blur(25px);
@@ -608,18 +630,6 @@
             justify-content: center;
             margin-bottom: 28px;
             box-shadow: inset 0 0 20px rgba(139, 92, 246, 0.1);
-        }
-
-        .upcoming-illustration-box::before {
-            content: '';
-            position: absolute;
-            top: 10px;
-            left: 12px;
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.2);
-            box-shadow: 10px 0 0 rgba(255,255,255,0.2), 20px 0 0 rgba(255,255,255,0.2);
         }
 
         .upcoming-lock-icon {
@@ -650,15 +660,6 @@
             margin-bottom: 20px;
         }
 
-        .upcoming-badge::before {
-            content: '';
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: #C084FC;
-            box-shadow: 0 0 8px #C084FC;
-        }
-
         .upcoming-title {
             font-size: clamp(1.8rem, 4vw, 2.5rem);
             font-weight: 900;
@@ -675,88 +676,93 @@
             margin-bottom: 36px;
         }
 
-        .upcoming-progress-section {
-            width: 100%;
-            max-width: 480px;
-            margin-bottom: 36px;
-        }
-
-        .upcoming-progress-labels {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.75rem;
-            color: #64748B;
-            margin-bottom: 10px;
-            font-weight: 500;
-        }
-
-        .upcoming-progress-labels span:last-child {
-            color: #8B5CF6;
-        }
-
-        .upcoming-progress-track {
-            width: 100%;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 4px;
-            overflow: hidden;
-        }
-
-        .upcoming-progress-fill {
-            width: 35%;
-            height: 100%;
-            background: linear-gradient(90deg, #38BDF8 0%, #8B5CF6 100%);
-            border-radius: 4px;
-        }
-
-        .upcoming-tags-group {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .upcoming-tag-pill {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            color: #94A3B8;
-            padding: 8px 18px;
-            border-radius: 20px;
-            font-size: 0.78rem;
-            font-weight: 500;
-        }
-
         /* --------------------------------------------------------------------------
-           MEDIA QUERIES (RESPONSIVE ADAPTATIONS)
+           FIXED MOBILE RESPONSIVE & DRAGGABLE HORIZONTAL MENU TRACK
            -------------------------------------------------------------------------- */
         @media (max-width: 1024px) {
             .case-study-unified-card { 
                 grid-template-columns: 1fr; 
                 height: auto; 
-                border-radius: 20px;
+                border-radius: 24px;
+                overflow: visible;
             }
 
+            /* Container for horizontal bar */
             .card-navigation-sidebar {
+                width: 100%;
                 border-right: none;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-                padding: 16px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+                padding: 14px 0;
                 height: auto;
+                background: rgba(0, 3, 18, 0.95);
+                backdrop-filter: blur(15px);
+                border-radius: 24px 24px 0 0;
+                overflow: hidden; /* Clips scrolling items cleanly at rounded container edges */
             }
 
+            /* Scrollable Track - Fixes Clipping & Enables Seamless Drag */
             .sidebar-tabs-group {
-                flex-direction: row;
-                overflow-x: auto;
-                padding-bottom: 8px;
-                scrollbar-width: none;
+                display: flex !important;
+                flex-direction: row !important;
+                gap: 10px !important;
+                width: 100% !important;
+                overflow-x: auto !important;
+                overflow-y: hidden !important;
+                /* Crucial side padding so items 1 and 8 are never cut off */
+                padding: 4px 20px 8px 20px !important;
+                margin: 0 !important;
+                scrollbar-width: none; /* Firefox hidden scrollbar */
+                -webkit-overflow-scrolling: touch; /* iOS smooth inertia */
+                cursor: grab;
+                user-select: none;
+                touch-action: pan-x;
+                overscroll-behavior-x: contain;
+                box-sizing: border-box;
             }
 
             .sidebar-tabs-group::-webkit-scrollbar {
-                display: none;
+                display: none; /* Webkit hidden scrollbar */
             }
 
+            .sidebar-tabs-group:active {
+                cursor: grabbing;
+            }
+
+            /* Flexible Horizontal Chips */
             .tab-node-btn {
-                width: auto;
-                flex-shrink: 0;
+                flex: 0 0 auto !important; /* Prevents item shrinking */
+                width: auto !important;
+                display: inline-flex !important;
+                align-items: center !important;
+                gap: 8px !important;
+                padding: 10px 18px !important;
+                border-radius: 30px !important;
+                background: rgba(255, 255, 255, 0.03) !important;
+                border: 1px solid rgba(255, 255, 255, 0.08) !important;
+                opacity: 0.8;
+                white-space: nowrap !important;
+                box-sizing: border-box;
+            }
+
+            .tab-node-btn h4 {
+                font-size: 0.8rem;
+                font-weight: 600;
+                white-space: nowrap !important;
+            }
+
+            .tab-node-btn.active-tab {
+                background: linear-gradient(135deg, var(--ai-glow-blue), var(--ai-glow-purple)) !important;
+                color: #FFFFFF !important;
+                border-color: transparent !important;
+                opacity: 1;
+                font-weight: 700;
+                box-shadow: 0 0 15px rgba(0, 240, 255, 0.3) !important;
+            }
+
+            .tab-node-btn.active-tab .tab-node-indicator {
+                background: #FFFFFF !important;
+                border-color: #FFFFFF !important;
+                box-shadow: none !important;
             }
 
             .ai-card {
@@ -766,138 +772,88 @@
             .card-contents-wrapper { 
                 overflow-y: visible; 
                 height: auto; 
-                padding: 24px 20px; 
+                padding: 28px 20px; 
             }
         }
 
         @media (max-width: 768px) {
             .header1 {
-                position: relative;
-                top: 0;
-                left: 0;
-                transform: none;
-                width: 100%;
-                border-radius: 0;
-                border-left: none;
-                border-right: none;
-                border-top: none;
+                top: 12px;
+                width: calc(100% - 24px);
+                border-radius: 16px;
+                padding: 0 16px;
             }
 
-            nav {
-                justify-content: center;
-                flex-direction: column;
+            .nav-toggle {
+                display: flex;
             }
 
             .menu {
-                justify-content: center;
-                gap: 12px;
+                position: absolute;
+                top: calc(100% + 10px);
+                left: 0;
+                right: 0;
+                background: #09090b;
+                flex-direction: column;
+                padding: 20px;
+                gap: 16px;
+                border-radius: 16px;
+                border: 1px solid rgba(255, 255, 255, 0.15);
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.9);
+                opacity: 0;
+                visibility: hidden;
+                pointer-events: none;
+                transform: translateY(-10px);
+                transition: all 0.3s ease;
+            }
+
+            .menu.active {
+                opacity: 1;
+                visibility: visible;
+                pointer-events: auto;
+                transform: translateY(0);
             }
 
             .page-grid-container {
-                padding: 30px 16px 40px 16px !important;
+                padding: 110px 16px 40px 16px !important;
             }
 
             .case-study-exterior-header {
                 flex-direction: column;
-                gap: 8px;
-            }
-        }
-
-        /* --- RESPONSIVE SIDEBAR NAVIGATION --- */
-        .card-navigation-sidebar {
-            width: 100%;
-            max-width: 100%;
-            box-sizing: border-box;
-        }
-
-        @media (max-width: 1024px) {
-            .card-navigation-sidebar {
-                width: 100%;
-                margin-bottom: 1.5rem;
+                gap: 12px;
             }
 
-            .sidebar-tabs-group {
-                display: flex;
-                flex-direction: row;
-                gap: 0.5rem;
-                overflow-x: auto;
-                white-space: nowrap;
-                padding-bottom: 8px;
-                -webkit-overflow-scrolling: touch;
-                scrollbar-width: thin;
+            .asym-grid-block {
+                grid-template-columns: 1fr;
             }
 
-            .tab-node-btn {
-                flex: 0 0 auto;
-                min-width: max-content;
-                padding: 10px 14px;
-            }
-
-            .tab-node-btn h4 {
-                font-size: 0.85rem;
-                white-space: nowrap;
-            }
-        }
-
-        @media (max-width: 600px) {
-            .tab-node-btn {
-                padding: 8px 12px;
-            }
-            
-            .tab-node-btn h4 {
-                font-size: 0.8rem;
-            }
-
-            .upcoming-container-card {
-                padding: 40px 16px;
-            }
-        }
-
-        /* --- RESPONSIVE METRICS & ROI SCOREBOARD --- */
-        .metrics-scoreboard-nested {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 12px;
-            width: 100%;
-            box-sizing: border-box;
-            margin-top: 20px;
-        }
-
-        /* --- RESPONSIVE DATA TABLE & WRAPPER --- */
-        .table-responsive {
-            width: 100%;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            margin-top: 16px;
-            border-radius: 8px;
-        }
-
-        .portfolio-data-table {
-            width: 100%;
-            min-width: 100%;
-            border-collapse: collapse;
-        }
-
-        @media (max-width: 768px) {
             .metrics-scoreboard-nested {
                 grid-template-columns: repeat(2, 1fr);
-                gap: 10px;
-            }
-
-            .portfolio-data-table th, 
-            .portfolio-data-table td {
-                padding: 8px 10px;
-                font-size: 0.82rem;
             }
         }
 
         @media (max-width: 480px) {
+            .tab-node-btn {
+                padding: 8px 14px !important;
+            }
+            
+            .tab-node-btn h4 {
+                font-size: 0.78rem;
+            }
+
+            .upcoming-container-card {
+                padding: 40px 16px;
+                border-radius: 20px;
+            }
+
             .metrics-scoreboard-nested {
                 grid-template-columns: 1fr;
             }
             
-            .portfolio-data-table {
-                min-width: 500px;
+            .portfolio-data-table th, 
+            .portfolio-data-table td {
+                padding: 10px 12px;
+                font-size: 0.8rem;
             }
         }
     </style>
@@ -908,7 +864,12 @@
         <div class="container">
             <nav>
                 <div class="logo">Ranajeet Gaware<span>.</span></div>
-                <div class="menu">
+                <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <div class="menu" id="navMenu">
                     <a href="index.html">Profile</a>
                     <a href="index.html#expertise">Skills</a>
                     <a href="cccc-Copy.html" class="active">Case Studies</a>
@@ -919,12 +880,12 @@
         </div>
     </header>
 
-    <div class="page-grid-container" style="padding-top: 120px;">
+    <div class="page-grid-container">
         <header class="portfolio-header-zone">
             <h1 class="main-page-title">Case Studies</h1>
         </header>
 
-        <!-- HEADER INTERACTIVE PROJECT CAROUSEL CHIPS -->
+        <!-- SELECTED CASE STUDIES CHIPS CAROUSEL -->
         <header class="portfolio-header-zone">
             <span class="section-tag-mini">Selected Case Studies</span>
             <div class="chips-carousel-track">
@@ -937,9 +898,7 @@
         
         <hr style="margin-top:0px; margin-bottom:30px;">
 
-        <!-- ==========================================================================
-             CASE STUDY 1: Store Clustering and Assortment planning
-             ========================================================================== -->
+        <!-- CASE STUDY 1: Store Clustering and Assortment planning -->
         <div id="case-pulse-health" class="case-study-root-wrapper case-active">
             <div class="case-study-exterior-header">
                 <div class="exterior-header-number">1</div>
@@ -950,41 +909,40 @@
             </div>
 
             <div class="case-study-unified-card">
-                <nav class="card-navigation-sidebar">
-                    <div class="sidebar-tabs-group">
-                        <button class="tab-node-btn active-tab" data-target="pulse-context">
+                <!-- SIDEBAR MENU / MOBILE CHIP NAVIGATION -->
+                <nav class="card-navigation-sidebar" aria-label="Case Study Section Navigation">
+                    <div class="sidebar-tabs-group" role="tablist">
+                        <button class="tab-node-btn active-tab" data-target="pulse-context" role="tab" aria-selected="true">
                             <div class="tab-node-indicator"></div>
                             <h4>1. Context &amp; Profiles</h4>
                         </button>
-                        <button class="tab-node-btn" data-target="pulse-friction">
+                        <button class="tab-node-btn" data-target="pulse-friction" role="tab" aria-selected="false">
                             <div class="tab-node-indicator"></div>
                             <h4>2. User Research Loop</h4>
                         </button>
-                        <button class="tab-node-btn" data-target="pulse-research">
+                        <button class="tab-node-btn" data-target="pulse-research" role="tab" aria-selected="false">
                             <div class="tab-node-indicator"></div>
-                           <h4>3. Define</h4>
+                            <h4>3. Define</h4>
                         </button>
-
-                       
-                        <button class="tab-node-btn" data-target="pulse-architecture">
+                        <button class="tab-node-btn" data-target="pulse-architecture" role="tab" aria-selected="false">
                             <div class="tab-node-indicator"></div>
-                           <h4>4. The Problem Statement</h4>
+                            <h4>4. The Problem Statement</h4>
                         </button>
-                        <button class="tab-node-btn" data-target="pulse-journey">
+                        <button class="tab-node-btn" data-target="pulse-journey" role="tab" aria-selected="false">
                             <div class="tab-node-indicator"></div>
                             <h4>5. Solution &amp; Intuitive Flow</h4>
                         </button>
-                           <button class="tab-node-btn" data-target="pulse-ideation">
+                        <button class="tab-node-btn" data-target="pulse-ideation" role="tab" aria-selected="false">
                             <div class="tab-node-indicator"></div>
-                           <h4>6. Ideation and LowFI</h4>
+                            <h4>6. Ideation and LowFI</h4>
                         </button>
-                        <button class="tab-node-btn" data-target="pulse-prototype">
+                        <button class="tab-node-btn" data-target="pulse-prototype" role="tab" aria-selected="false">
                             <div class="tab-node-indicator"></div>
-                            <h4>6. High Fidelity Prototype Screens</h4>
+                            <h4>7. High Fidelity Prototype Screens</h4>
                         </button>
-                        <button class="tab-node-btn" data-target="pulse-validation">
+                        <button class="tab-node-btn" data-target="pulse-validation" role="tab" aria-selected="false">
                             <div class="tab-node-indicator"></div>
-                            <h4>7. Usability Metrics &amp; ROI</h4>
+                            <h4>8. Usability Metrics &amp; ROI</h4>
                         </button>
                     </div>
 
@@ -1017,95 +975,39 @@
                         </div>
                         <hr style="margin-top:24px;">
 
-                      
                         <div class="mockup-container" style="border:1px solid #1a1a1a;">
                             <img src="sca.png" class="img1" alt="Ideation Concept">
                         </div>
-                      <!--  <h3 class="section-headline-main" style="font-size: 1.1rem; margin-bottom: 12px; margin-top: 16px;">User Profiles</h3>
-                        <div class="data-panel-nested"> 
-                            <div class="table-responsive">
-                                <table class="portfolio-data-table">
-                                    <thead>
-                                        <tr>
-                                            <th style="width: 25%;">Persona</th>
-                                            <th style="width: 40%;">Primary Needs</th>
-                                            <th style="width: 35%;">Pain Points</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><strong>Senior Merchandising Analyst</strong></td>
-                                            <td>
-                                                <ul>
-                                                    <li>Initialize multi-layered project parameters quickly.</li>
-                                                    <li>Fine-tune cluster boundaries based on product performance anomalies.</li>
-                                                </ul>
-                                            </td>
-                                            <td>
-                                                <ul>
-                                                    <li>Spent hours cross-referencing CSV files.</li>
-                                                    <li>High cognitive load when identifying which clusters were live or pending.</li>
-                                                </ul>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Director of Assortment Planning</strong></td>
-                                            <td>
-                                                <ul>
-                                                    <li>Oversee pipeline execution and sync velocity metrics.</li>
-                                                    <li>Evaluate ROI, margin impacts, and inventory turn acceleration post-deployment.</li>
-                                                </ul>
-                                            </td>
-                                            <td>
-                                                <ul>
-                                                    <li>Blind spots in pipeline latency.</li>
-                                                    <li>Inability to rapidly audit micro-tuned market segments before production deployment.</li>
-                                                </ul>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div> -->
-                  </section>
+                    </section>
 
-                    <!-- TAB 2: THE PROBLEM STATEMENT -->
+                    <!-- TAB 2: USER RESEARCH LOOP -->
                     <section id="pulse-friction" class="canvas-section-segment">
-                       <h2 class="section-headline-main">User Research:<br><span class="text-gradient-coral">Methodology &amp; Deep-Dive</span></h2>
-                         <h4 class="section-headline-main">The Contextual Enquiry</h4>
+                        <h2 class="section-headline-main">User Research:<br><span class="text-gradient-coral">Methodology &amp; Deep-Dive</span></h2>
+                        <h4 class="section-headline-main">The Contextual Enquiry</h4>
                         <p class="body-desc-premium">To deeply understand the real-world workflow of store clustering and assortment planning, we conducted contextual inquiry sessions with 8 internal retail analysts. This involved observing their process, tools, and environmental challenges.</p>
                         
                         <div class="asym-grid-block">
                             <div class="data-panel-nested">
-                                <h4 style="color: var(--accent-purple); padding-bottom:12px;">Observation & Data Gathering (The 'What')</h4>
-                                <p> - During live planning sessions. Observed analysts in their natural workspace (desk environment). <br/><br/>- Documented the use of primary tools (Excel, Word, SAP, internal legacy systems).<br/>.<br/>
-                                - Mapped the physical and digital workflow, noting environmental Captured tacit knowledge and environmental factors influencing decisions.</p>
+                                <h4 style="color: var(--accent-purple); padding-bottom:12px;">Observation &amp; Data Gathering (The 'What')</h4>
+                                <p>- During live planning sessions. Observed analysts in their natural workspace (desk environment).<br/><br/>- Documented the use of primary tools (Excel, Word, SAP, internal legacy systems).<br/><br/>- Mapped the physical and digital workflow, noting environmental factors influencing decisions.</p>
                             </div>
-                          <div class="data-panel-nested">
-                                <h4 style="color: var(--accent-purple); padding-bottom:12px;">Analysis & Interpretation (The 'Why')</h4>
-                                <p>- Behind specific observed actions. Conducted immediate follow-up debriefs to understand the 'why'.<br/><br/>Uncovered internal heuristics and tacit knowledge used for complex decisions.<br/>.<br/>
-                                - Mapped task analysis against identified environmental factors.<br/><br/>- Validated initial findings with participants to ensure accurate interpretation of observed behaviors.</p>
+                            <div class="data-panel-nested">
+                                <h4 style="color: var(--accent-purple); padding-bottom:12px;">Analysis &amp; Interpretation (The 'Why')</h4>
+                                <p>- Conducted immediate follow-up debriefs to understand the 'why' behind specific observed actions.<br/><br/>- Uncovered internal heuristics and tacit knowledge used for complex decisions.<br/><br/>- Validated initial findings with participants to ensure accurate interpretation of observed behaviors.</p>
                             </div>
                         </div>
                         <hr style="margin: 24px 0;">
-                        <h3 class="section-headline-main" style="font-size: 1.1rem; margin-bottom: 12px;">Key User Stories & Needs</h3>
+                        <h3 class="section-headline-main" style="font-size: 1.1rem; margin-bottom: 12px;">Key User Stories &amp; Needs</h3>
                         <div class="flow-diagram-box" style="background: rgba(20, 26, 43, 0.3);">
-•Need 1 (Unified Workspace): I need a single, integrated platform that connects parameter setting, assortment planning, and deployment, rather than having to piece together multiple disparate tools.<br/>.<br/>
-•Need 2 (Error Reduction): I need guardrails and data validation to prevent simple date entry errors and ensure cluster integrity.
-                           
+• Need 1 (Unified Workspace): I need a single, integrated platform that connects parameter setting, assortment planning, and deployment, rather than having to piece together multiple disparate tools.
+
+• Need 2 (Error Reduction): I need guardrails and data validation to prevent simple date entry errors and ensure cluster integrity.
                         </div>
-
-
-                        
-                        
-                        <!--
-                        -->
                     </section>
 
-                    <!-- TAB 3: USER RESEARCH LOOP -->
-              <section id="pulse-research" class="canvas-section-segment">
-
- <h2 class="section-headline-main">Define:<br><span class="text-gradient-coral">Understandings and Insights</span></h2>
+                    <!-- TAB 3: DEFINE -->
+                    <section id="pulse-research" class="canvas-section-segment">
+                        <h2 class="section-headline-main">Define:<br><span class="text-gradient-coral">Understandings and Insights</span></h2>
                         <p class="body-desc-premium">By tracking emotional highs and friction thresholds across tasks, we translated cognitive needs directly into low-fidelity conceptual blocks before refining components.</p>
                         
                         <div class="asym-grid-block">
@@ -1118,7 +1020,7 @@
                                 <p>Ensuring visual safety feedback mechanisms before data sync sequences execution happens.</p>
                             </div>
                         </div>
-                                                    <hr style="margin-top:24px;">
+                        <hr style="margin-top:24px;">
                         <h3 class="section-headline-main" style="font-size: 1.1rem; margin-bottom: 12px; margin-top: 16px;">User Profiles</h3>
                         <div class="data-panel-nested"> 
                             <div class="table-responsive">
@@ -1167,19 +1069,13 @@
                         </div> 
                         <hr style="margin: 24px 0;">
                         <div class="mockup-container" style="border:1px solid #1a1a1a;">
-                            <img src="persona.png" class="img1" alt="Ideation Concept">
+                            <img src="persona.png" class="img1" alt="Persona Diagram">
                         </div>
-                    
-
-
-                        
-                
                     </section> 
 
-                    <!-- TAB 4: SOLUTION & INTUITIVE FLOW -->
+                    <!-- TAB 4: THE PROBLEM STATEMENT -->
                     <section id="pulse-architecture" class="canvas-section-segment">
-
-<h2 class="section-headline-main">The Problem Statement:<br><span class="text-gradient-coral">Managing Enterprise Data Density</span></h2>
+                        <h2 class="section-headline-main">The Problem Statement:<br><span class="text-gradient-coral">Managing Enterprise Data Density</span></h2>
                         
                         <p class="body-desc-premium" style="font-style: italic; color: #E2E8F0; border-left: 4px solid var(--ai-glow-blue); padding-left: 16px; font-size: 1rem; padding-top: 4px;">
                             Retail planning teams lack a centralized, collaborative platform to manage the lifecycle of store clustering projects. Without a unified system, teams struggle with tracking project history, comparing forecasted performance, and ensuring stakeholder alignment, leading to suboptimal assortment decisions and slow response times to market shifts.
@@ -1200,12 +1096,10 @@
                             <h4 style="padding-bottom:12px;">Context Fragmentation</h4>
                             <p>Switching between micro-level cluster adjustments and macro-level pipeline health disrupted user focus and task completion.</p>
                         </div>
-
-
                     </section>
-<!-- Tab Solution-->
 
-<section id="pulse-journey" class="canvas-section-segment active-content-pane">
+                    <!-- TAB 5: SOLUTION & INTUITIVE FLOW -->
+                    <section id="pulse-journey" class="canvas-section-segment">
                         <h2 class="section-headline-main">Solution &amp; Intuitive User Flow:<br><span class="text-gradient-coral">The Conclusions</span></h2>
                         
                         <div class="asym-grid-block">
@@ -1234,19 +1128,18 @@
                         <img src="IA.png" class="img1" style="border-radius: 8px;" alt="User Flow Diagram">
                     </section>
                     
-                    <!-- TAB 5: THE USER JOURNEY AND IDEATION -->
+                    <!-- TAB 6: IDEATION AND LOWFI -->
                     <section id="pulse-ideation" class="canvas-section-segment">
-                       <h2 class="section-headline-main">Ideation<br><span class="text-gradient-coral">Shaping the Idea</span></h2>
+                        <h2 class="section-headline-main">Ideation<br><span class="text-gradient-coral">Shaping the Idea</span></h2>
                   
                         <h3 class="section-headline-main" style="font-size: 1.1rem; margin-top: 24px; margin-bottom: 12px;">User Flow Diagram</h3>
                         <img src="User_Flow_map.png" class="img1" style="border-radius: 8px;" alt="User Flow Diagram">
 
-                        
                         <h3 class="section-headline-main" style="font-size: 1.1rem; margin-top: 24px; margin-bottom: 12px;">LowFI</h3>
-                        <img src="Sketches1.png" class="img1" style="border-radius: 8px;" alt="User Flow Diagram">
+                        <img src="Sketches1.png" class="img1" style="border-radius: 8px;" alt="Sketches Diagram">
                     </section>
 
-                    <!-- TAB 6: HIGH FIDELITY PROTOTYPE SCREENS -->
+                    <!-- TAB 7: HIGH FIDELITY PROTOTYPE SCREENS -->
                     <section id="pulse-prototype" class="canvas-section-segment">
                         <h2 class="section-headline-main">High Fidelity Prototype Screens:<br><span class="text-gradient-coral">The Refined Product Suite</span></h2>
                         <p class="body-desc-premium">Production-ready design patterns integrating heavy parameter density systems with clean visual hierarchies, micro-interactions, and distinct statuses language.</p>
@@ -1256,7 +1149,7 @@
                         </div>
                     </section>
 
-                    <!-- TAB 7: USABILITY METRICS & ROI, IMPACT -->
+                    <!-- TAB 8: USABILITY METRICS & ROI -->
                     <section id="pulse-validation" class="canvas-section-segment">
                         <h2 class="section-headline-main">Usability Metrics &amp; ROI, Impact:<br><span class="text-gradient-coral">Data-Backed Verification Loops</span></h2>
                         <p class="body-desc-premium">Following a 4-week beta rollout, the new system architecture was validated using quantitative system telemetry and qualitative usability testing.</p>
@@ -1325,9 +1218,7 @@
             </div>
         </div>
 
-        <!-- ==========================================================================
-             UPCOMING CASE STUDY 02
-             ========================================================================== -->
+        <!-- UPCOMING CASE STUDY PLACEHOLDERS -->
         <div id="case-upcoming-1" class="case-study-root-wrapper">
             <div class="upcoming-container-card">
                 <div class="upcoming-illustration-box">
@@ -1338,39 +1229,12 @@
                         </svg>
                     </div>
                 </div>
-                
-                <div class="upcoming-badge">
-                    Case Study 02 — In Progress
-                </div>
-                
+                <div class="upcoming-badge">Case Study 02 — In Progress</div>
                 <h2 class="upcoming-title">Upcoming Case Study</h2>
-                
-                <p class="upcoming-description">
-                    This case study is currently being designed and documented. It will include a full breakdown of the research methodology, design decisions, prototype iterations, and validated impact metrics.
-                </p>
-
-                <div class="upcoming-progress-section">
-                    <div class="upcoming-progress-labels">
-                        <span>Documentation Progress</span>
-                        <span>In Research Phase</span>
-                    </div>
-                    <div class="upcoming-progress-track">
-                        <div class="upcoming-progress-fill"></div>
-                    </div>
-                </div>
-
-                <div class="upcoming-tags-group">
-                    <span class="upcoming-tag-pill">UX Research</span>
-                    <span class="upcoming-tag-pill">Wireframing</span>
-                    <span class="upcoming-tag-pill">Usability Testing</span>
-                    <span class="upcoming-tag-pill">AI Experience</span>
-                </div>
+                <p class="upcoming-description">This case study is currently being designed and documented.</p>
             </div>
         </div>
 
-        <!-- ==========================================================================
-             UPCOMING CASE STUDY 03
-             ========================================================================== -->
         <div id="case-upcoming-2" class="case-study-root-wrapper">
             <div class="upcoming-container-card">
                 <div class="upcoming-illustration-box">
@@ -1381,39 +1245,12 @@
                         </svg>
                     </div>
                 </div>
-                
-                <div class="upcoming-badge">
-                    Case Study 03 — In Progress
-                </div>
-                
+                <div class="upcoming-badge">Case Study 03 — In Progress</div>
                 <h2 class="upcoming-title">Upcoming Case Study</h2>
-                
-                <p class="upcoming-description">
-                    This case study is currently being designed and documented. It will include a full breakdown of the research methodology, design decisions, prototype iterations, and validated impact metrics.
-                </p>
-
-                <div class="upcoming-progress-section">
-                    <div class="upcoming-progress-labels">
-                        <span>Documentation Progress</span>
-                        <span>In Research Phase</span>
-                    </div>
-                    <div class="upcoming-progress-track">
-                        <div class="upcoming-progress-fill"></div>
-                    </div>
-                </div>
-
-                <div class="upcoming-tags-group">
-                    <span class="upcoming-tag-pill">UX Research</span>
-                    <span class="upcoming-tag-pill">Wireframing</span>
-                    <span class="upcoming-tag-pill">Usability Testing</span>
-                    <span class="upcoming-tag-pill">AI Experience</span>
-                </div>
+                <p class="upcoming-description">This case study is currently being designed and documented.</p>
             </div>
         </div>
 
-        <!-- ==========================================================================
-             UPCOMING CASE STUDY 04
-             ========================================================================== -->
         <div id="case-upcoming-3" class="case-study-root-wrapper">
             <div class="upcoming-container-card">
                 <div class="upcoming-illustration-box">
@@ -1424,40 +1261,37 @@
                         </svg>
                     </div>
                 </div>
-                
-                <div class="upcoming-badge">
-                    Case Study 04 — In Progress
-                </div>
-                
+                <div class="upcoming-badge">Case Study 04 — In Progress</div>
                 <h2 class="upcoming-title">Upcoming Case Study</h2>
-                
-                <p class="upcoming-description">
-                    This case study is currently being designed and documented. It will include a full breakdown of the research methodology, design decisions, prototype iterations, and validated impact metrics.
-                </p>
-
-                <div class="upcoming-progress-section">
-                    <div class="upcoming-progress-labels">
-                        <span>Documentation Progress</span>
-                        <span>In Research Phase</span>
-                    </div>
-                    <div class="upcoming-progress-track">
-                        <div class="upcoming-progress-fill"></div>
-                    </div>
-                </div>
-
-                <div class="upcoming-tags-group">
-                    <span class="upcoming-tag-pill">UX Research</span>
-                    <span class="upcoming-tag-pill">Wireframing</span>
-                    <span class="upcoming-tag-pill">Usability Testing</span>
-                    <span class="upcoming-tag-pill">AI Experience</span>
-                </div>
+                <p class="upcoming-description">This case study is currently being designed and documented.</p>
             </div>
         </div>
 
     </div>
 
+    <!-- DRAGGABLE & RESPONSIVE TAB SCRIPT -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Header Mobile Toggle
+            const navToggle = document.getElementById('navToggle');
+            const navMenu = document.getElementById('navMenu');
+
+            if (navToggle && navMenu) {
+                navToggle.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    navToggle.classList.toggle('active');
+                    navMenu.classList.toggle('active');
+                });
+
+                document.addEventListener('click', (e) => {
+                    if (!navMenu.contains(e.target) && !navToggle.contains(e.target)) {
+                        navToggle.classList.remove('active');
+                        navMenu.classList.remove('active');
+                    }
+                });
+            }
+
+            // Outer Project Chips Selector
             const chipButtons = document.querySelectorAll('.project-chip-btn');
             const caseContainers = document.querySelectorAll('.case-study-root-wrapper');
 
@@ -1472,25 +1306,30 @@
                         container.classList.remove('case-active');
                         if (container.id === `case-${targetedCaseAttr}`) {
                             container.classList.add('case-active');
-                            
                             const entryTab = container.querySelector('.tab-node-btn');
-                            if(entryTab) entryTab.click();
+                            if (entryTab) entryTab.click();
                         }
                     });
                 });
             });
 
+            // Inner Tabs Logic with Auto-Scroll Center alignment
             const initializeInternalTabs = (scope) => {
                 const tabs = scope.querySelectorAll('.tab-node-btn');
                 const sections = scope.querySelectorAll('.canvas-section-segment');
                 const contentContainer = scope.querySelector('.card-contents-wrapper');
 
                 tabs.forEach(tab => {
-                    tab.addEventListener('click', () => {
+                    tab.addEventListener('click', (e) => {
                         const targetSectionId = tab.getAttribute('data-target');
 
-                        tabs.forEach(t => t.classList.remove('active-tab'));
+                        tabs.forEach(t => {
+                            t.classList.remove('active-tab');
+                            t.setAttribute('aria-selected', 'false');
+                        });
+
                         tab.classList.add('active-tab');
+                        tab.setAttribute('aria-selected', 'true');
 
                         sections.forEach(sec => {
                             sec.classList.remove('active-content-pane');
@@ -1499,12 +1338,67 @@
                             }
                         });
 
-                        if(contentContainer) contentContainer.scrollTop = 0;
+                        if (contentContainer) contentContainer.scrollTop = 0;
+
+                        // Smoothly center the clicked menu tab on mobile screens
+                        if (window.innerWidth <= 1024) {
+                            tab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                        }
                     });
                 });
             };
 
             caseContainers.forEach(containerScope => initializeInternalTabs(containerScope));
+
+            // Draggable Scrolling via Pointer Events (Touch & Mouse unified)
+            const makeTrackDraggable = (track) => {
+                if (!track) return;
+
+                let isDown = false;
+                let startX;
+                let scrollLeft;
+                let dragMoved = false;
+
+                track.addEventListener('pointerdown', (e) => {
+                    // Only respond to primary click/touch
+                    if (e.button !== 0 && e.pointerType === 'mouse') return;
+                    isDown = true;
+                    dragMoved = false;
+                    startX = e.pageX - track.offsetLeft;
+                    scrollLeft = track.scrollLeft;
+                });
+
+                track.addEventListener('pointerleave', () => {
+                    isDown = false;
+                });
+
+                track.addEventListener('pointerup', () => {
+                    isDown = false;
+                });
+
+                track.addEventListener('pointermove', (e) => {
+                    if (!isDown) return;
+                    const x = e.pageX - track.offsetLeft;
+                    const walk = (x - startX) * 1.5; // Scroll speed factor
+                    if (Math.abs(walk) > 4) {
+                        dragMoved = true;
+                        e.preventDefault();
+                        track.scrollLeft = scrollLeft - walk;
+                    }
+                });
+
+                // Prevent accidentally triggering button tab clicks when dragging
+                track.querySelectorAll('button').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        if (dragMoved) {
+                            e.preventDefault();
+                            e.stopImmediatePropagation();
+                        }
+                    }, true);
+                });
+            };
+
+            document.querySelectorAll('.sidebar-tabs-group, .chips-carousel-track').forEach(makeTrackDraggable);
         });
     </script>
 </body>
